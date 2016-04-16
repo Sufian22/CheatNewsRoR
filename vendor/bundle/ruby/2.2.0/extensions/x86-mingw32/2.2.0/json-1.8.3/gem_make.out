@@ -1,0 +1,9 @@
+C:/RailsInstaller/Ruby2.2.0/bin/ruby.exe -r ./siteconf20160416-2552-8h26kv.rb extconf.rb
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+make "DESTDIR=" install
