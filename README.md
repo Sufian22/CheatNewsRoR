@@ -1,4 +1,4 @@
-Eynar Arnez
-Mingjian Chen
-Joan Torras
-Soufiane Ben Bouker
+* Eynar Arnez
+* Mingjian Chen
+* Joan Torras
+* Soufiane Ben Bouker
