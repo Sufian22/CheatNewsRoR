@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Untitled1</title>
+  <title>Cheatnews</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+
+                            <!-- Barra navegacional -->
+
+  <ul class="nav nav-pills">
+    <li role="presentation"><%= link_to 'Home', root_path %></li>
+    <li role="presentation"><%= link_to 'Users', users_path %></li>
+    <li role="presentation"><%= link_to 'Comments', comments_path %></li>
+    <li role="presentation"><%= link_to 'Submissions', submissions_path %></li>
+    <li role="presentation"><%= link_to 'Replies', replies_path %></li>
+  </ul>
+
+
 </head>
 <body>
 
