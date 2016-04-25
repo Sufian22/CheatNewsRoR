@@ -6,11 +6,23 @@
 <body>
 
   <h1>WELCOME TO THE HOMEPAGE</h1>
-  <h2> Aquí iría la lista de submissions </h2>
+  <h2> Lista de submissions </h2>
+  <h2> Falta hacer el texto de numero de comentarios como link y mandarlo a una view donde se cree
+       un comentario para la submission seleccionada. </h2>
 
-  <li> Para seguir el patrón MVC deberíais usar ruby en el HomeController para sacar las submissions o lo que querais</li>
-  <li> La barra navegacional de momento solo hay los apartados de 'admin'. Se debería hacer una view especifica
-    para redireccionar a views similares a hackernews </li>
+  <ol>
+    <% @submissions.each do |sub| %>
+      <li>
+        <% if sub.tipo == 1 %>
+            <%= sub.link %>
+        <% elsif sub.tipo == 2 %>
+            <%= sub.description %>
+        <% end %>
+      </li>
+        <p><%= sub.comments.length %> Comments</p>
+
+    <% end %>
+  </ol>
 
 </body>
 </html>
