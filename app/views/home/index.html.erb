@@ -5,24 +5,21 @@
 </head>
 <body>
 
-  <h1>WELCOME TO THE HOMEPAGE</h1>
-  <h2> Lista de submissions </h2>
-  <h2> Falta hacer el texto de numero de comentarios como link y mandarlo a una view donde se cree
-       un comentario para la submission seleccionada. </h2>
-
-  <ol>
-    <% @submissions.each do |sub| %>
-      <li>
-        <% if sub.tipo == 1 %>
-            <%= sub.link %>
-        <% elsif sub.tipo == 2 %>
-            <%= sub.description %>
-        <% end %>
-      </li>
-        <p><%= sub.comments.length %> Comments</p>
-
-    <% end %>
-  </ol>
+  <div style="margin-left: 20%">
+    <ol>
+      <% @submissions.each do |sub| %>
+        <li>
+          <% if sub.tipo == 1 %>
+              <%= link_to sub.description + " (source)", sub.link %>
+          <% elsif sub.tipo == 2 %>
+              <%= link_to sub.description, home_newcomment_path(:submission_id => sub.id) %>
+          <% end %>
+        </li>
+          <p> XX Points | <%= "User " + sub.user_id.to_s %> | <%= link_to sub.comments.length.to_s + " Comments",
+                                    home_newcomment_path(:submission_id => sub.id) %></p>
+      <% end %>
+    </ol>
+  </div>
 
 </body>
 </html>

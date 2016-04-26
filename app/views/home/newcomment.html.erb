@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="margin-left: 20%;">
+    <h1> <%= @submission.description  %> </h1>
+    <p style="margin-left: 20%"> <%= @submission.comments.length %> Comments</p>
+  </div>
+
+  <div style=" margin-left: 20% ">
+
+    <%= form_for(@comment, url: home_createcomment_path) do |c| %>
+        <%= c.text_area :texto, :class => 'form-control' %>
+        <%= c.hidden_field :user_id, :class => 'form-control' %>
+        <%= c.hidden_field :submission_id, :class => 'form-control' %>
+        <%= c.submit "add comment" %>
+    <% end %>
+
+  </div>
+
+  <div style="margin-left: 20%">
+    <p> Comment list: </p>
+    <ul>
+      <% if @submission.comments.length > 0 %>
+        <% @submission.comments.each do |comment| %>
+          <li> by: <%= comment.user_id %> at: <%= comment.created_at %> </li>
+          <p> Comment: <%= comment.texto %> </p>
+              <p><%= link_to "reply", home_newreply_path(:comment_id => comment.id) %></p>
+            <ul>
+              <% if comment.replies.length > 0 %>
+                <ul>
+                  <% comment.replies.each do |reply| %>
+                    <li> by: <%= reply.user_id %> at <%= reply.created_at %> </li>
+                    <p> Reply: <%= reply.texto %></p>
+                  <% end %>
+                </ul>
+              <% end %>
+            </ul>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+</body>
+</html>
