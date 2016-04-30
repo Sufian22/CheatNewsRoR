@@ -1,24 +1,25 @@
 Rails.application.routes.draw do
 
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'sessions/destroy'
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount_devise_token_auth_for 'User', at: 'auth'
+
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/admin')
+  get '/signout', to: 'sessions#destroy', as: 'signout'
 
   resources :submissions
   resources :replies
   resources :comments
   resources :users
+  resources :sessions, only: [:create, :destroy]
 
   root 'home#index'
+
   get 'home/newcomment'
   get 'home/newreply'
   post 'home/createcomment'
   post 'home/createreply'
 
-  get "log_out" => "sessions#destroy", :as => "log_out"
-  get "log_in" => "sessions#new", :as => "log_in"
-  get "sign_up" => "users#new", :as => "sign_up"
-  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

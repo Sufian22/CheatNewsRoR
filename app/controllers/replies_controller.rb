@@ -1,4 +1,6 @@
 class RepliesController < ApplicationController
+
+  before_filter :authenticate_user!
   before_action :set_reply, only: [:show, :edit, :update, :destroy]
 
   # GET /replies
