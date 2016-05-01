@@ -67,13 +67,24 @@ class SubmissionsController < ApplicationController
     end
   end
 
+  def formatted_url(submissionurl)
+      url_format=submissionurl.split(".").second
+      aux=submissionurl.split(".")[2]
+      url_format.try(:concat,".") 
+      aux = aux.try(:split, "/").try(:first)
+      url_format.try(:concat,aux) 
+      return url_format
+  end
+  helper_method :formatted_url
+  
+  
+  
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_submission
       @submission = Submission.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
       params.require(:submission).permit(:link, :description, :tipo, :user_id)
     end

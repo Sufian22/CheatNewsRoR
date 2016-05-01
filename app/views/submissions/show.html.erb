@@ -1,19 +1,14 @@
-<%= render 'header' %>
-
 <p>
       <%= link_to "^", "vote?for=#{@submission.id}&dir=up&goto=#{request.original_fullpath.split("/").second}"  %>
-      <% if @submission.url.blank? %>
+      <% if @submission.link.blank? %>
       <%= link_to @submission.title, @submission %>
       <% else %>
-      <%= link_to @submission.title, extlink(@submission.url) %>
-      (<%= link_to formatted_url(@submission.url) ,"from?site_name=#{formatted_url(@submission.url)}"%>)
+      <%= link_to @submission.title, extlink(@submission.link) %>
+      (<%= link_to formatted_url(@submission.link) ,"from?site_name=#{formatted_url(@submission.link)}"%>)
       <% end %>
     
  </p>
-  <p>   
-      1 point by <%= link_to @submission.user.username, @submission.user %>  <%= link_to time_ago_in_words(@submission.created_at), @submission %> ago
-      | <%= link_to 'discuss', @submission %>
- </p>
+
  
  <form>
     <textarea rows="5" cols="60"></textarea>
