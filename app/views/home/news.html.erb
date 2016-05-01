@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="margin-left: 20%">
+    <ol>
+      <% @news.each do |new| %>
+        <li>
+          <% if new.tipo == 1 %>
+              <%= link_to new.title.to_s + " (source)", new.link %>
+          <% elsif new.tipo == 2 %>
+              <%= link_to new.title, home_newcomment_path(:submission_id => new.id) %>
+          <% end %>
+        </li>
+          <p> XX Points | <%= "User " + new.user_id.to_s %> | <%= link_to new.comments.length.to_s + " Comments",
+                                    home_newcomment_path(:submission_id => new.id) %></p>
+      <% end %>
+    </ol>
+  </div>
+
+</body>
+</html>

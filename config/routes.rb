@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create, :destroy]
 
   root 'home#index'
-
+  
+  get 'home/news'
+  get 'home/asks'
   get 'home/newcomment'
   get 'home/newreply'
   get 'home/newsubmission'

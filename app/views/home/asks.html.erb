@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="margin-left: 20%">
+    <ol>
+      <% @asks.each do |ask| %>
+      <% if ask.tipo == 2 %>
+        <li>
+          
+              
+            <%= link_to ask.title, home_newcomment_path(:submission_id => ask.id) %>
+          
+            </li>
+              <p> XX Points | <%= "User " + ask.user_id.to_s %> | <%= link_to ask.comments.length.to_s + " Comments",
+                                    home_newcomment_path(:submission_id => ask.id) %></p>
+          
+      <% end %>
+      <% end %>
+    </ol>
+  </div>
+</body>
+</html>
