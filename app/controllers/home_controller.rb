@@ -45,6 +45,18 @@ class HomeController < ApplicationController
     redirect_to home_newcomment_path(:submission_id => @comment.submission_id)
   end
 
+  def newsubmission
+    # Para la ventana de creación de nueva submission
+    @submission = Submission.new
+  end
+  
+  def createsubmission
+    @submission = Submission.new(submission_params)
+    @submission.save!
+    redirect_to '/'
+  end
+  
+  
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -66,4 +78,8 @@ class HomeController < ApplicationController
     params.require(:reply).permit(:texto, :user_id, :comment_id)
   end
 
+  def submission_params
+      params.require(:submission).permit(:title, :link, :description)
+  end
+    
 end
