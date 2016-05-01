@@ -1,5 +1,4 @@
 class SubmissionsController < ApplicationController
-  before_filter :authenticate_user!
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
   # GET /submissions
@@ -17,6 +16,12 @@ class SubmissionsController < ApplicationController
   def new
     @submission = Submission.new
   end
+  
+   # GET /submissions/newest
+  def newest
+    @submissions = Submission.all.reversed
+  end
+  
 
   # GET /submissions/1/edit
   def edit
