@@ -4,26 +4,28 @@
 
 </head>
 <body>
-
-  <div style="margin-left: 20%">
-    <ol>
+  <div>
+    <ol style="background-color: lightgray">
         <%= form_for(@submission, url: home_createsubmission_path) do |f| %>
             <div class="field">
               <%= f.label :title %><br>
               <%= f.text_field :title %>
             </div>
-                <div class="field">
-                  <%= f.label :link %><br>
-                  <%= f.url_field :link %>
-                </div>
-                <div class="field">
-                  <%= f.label :description %><br>
-                  <%= f.text_area :description %>
-                </div>
-                
-                <div class="actions">
-                <%= f.submit %>
+            <div class="field">
+              <%= f.label :link %><br>
+              <%= f.url_field :link %>
             </div>
+            <p style="color: grey"><strong>or</strong></p>
+            <div class="field">
+              <%= f.label :description %><br>
+              <%= f.text_area :description %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit "submit" %>
+            </div>
+
+            <p style="color: grey"> Leave url blank to submit a question for discussion. If there is no url, the text (if any) will appear at the top of the thread. </p>
           <% end %>
       </ol>
   </div>

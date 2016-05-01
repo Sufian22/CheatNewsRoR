@@ -52,8 +52,14 @@ class HomeController < ApplicationController
   
   def createsubmission
     @submission = Submission.new(submission_params)
+
+    if @submission.link.empty?
+      @submission.tipo = 2
+    else @submission.tipo = 1
+    end
+
     @submission.save!
-    redirect_to '/'
+    redirect_to home_newcomment_path(:submission_id => @submission.id)
   end
   
   
