@@ -11,11 +11,28 @@
 
   <ul class="nav nav-pills" style="margin-left: 20%">
     <li role="presentation"><%= link_to 'Cheat News', root_path %></li>
+    <li>
+      <% if current_user %>
+          Signed in as <strong><%= current_user.name %></strong>!
+          <%= link_to "Sign out", signout_path, id: "sign_out" %>
+      <% else %>
+          <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+      <% end %>
+    </li>
+    <li>
+      <% if current_user %>
+          Signed in as <strong><%= current_user.name %></strong>!
+          <%= link_to "Sign out", signout_path, id: "sign_out" %>
+      <% else %>
+          <%= link_to "Sign in with Google+", "/auth/google_oauth2", id: "sign_in" %>
+      <% end %>
+    </li>
   </ul>
-
 
 </head>
 <body>
+
+
 
 <%= yield %>
 

@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
 
   get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/admin')
+  get 'auth/failure', to: redirect('/')
   get '/signout', to: 'sessions#destroy', as: 'signout'
+
+  get '//auth/facebook/callback' => 'home#index'
 
   resources :submissions
   resources :replies
