@@ -9,6 +9,7 @@
     <ol>
       <% @submissions.each do |sub| %>
         <li>
+          <%= link_to like_submission_path(sub), method: :put %>
           <% if sub.tipo == 1 %>
               <%= link_to sub.description + " (source)", sub.link %>
           <% elsif sub.tipo == 2 %>
@@ -17,6 +18,7 @@
         </li>
           <p> XX Points | <%= "User " + sub.user_id.to_s %> | <%= link_to sub.comments.length.to_s + " Comments",
                                     home_newcomment_path(:submission_id => sub.id) %></p>
+          <%= link_to "#{sub.votes_for.size} vots", sub %>
       <% end %>
     </ol>
   </div>

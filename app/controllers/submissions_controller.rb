@@ -61,6 +61,12 @@ class SubmissionsController < ApplicationController
     end
   end
 
+  def upvote
+    @submission = Submission.find(params[:id])
+    @submission.liked_by current_user
+    redirect_to @submission
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_submission

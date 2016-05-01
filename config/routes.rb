@@ -9,6 +9,12 @@ Rails.application.routes.draw do
   resources :comments
   resources :users
 
+  resources :submissions do
+    member do
+      put "like", to: "submissions#upvote"
+    end
+   end
+
   root 'home#index'
   get 'home/newcomment'
   get 'home/newreply'
@@ -18,6 +24,7 @@ Rails.application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
