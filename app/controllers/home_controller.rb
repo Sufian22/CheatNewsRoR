@@ -85,7 +85,7 @@ class HomeController < ApplicationController
   end
 
   def submission_params
-      params.require(:submission).permit(:title, :link, :description)
+      params.require(:submission).permit(:title, :link, :description, :tipo)
   end
     
 end
