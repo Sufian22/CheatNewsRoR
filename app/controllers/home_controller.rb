@@ -12,6 +12,10 @@ class HomeController < ApplicationController
     @news = Submission.all.order(created_at: :desc)
   end
 
+  def asks
+    @asks = Submission.all.order(created_at: :desc)
+  end 
+  
   def comments
     # Para la ventana comentarios, ordenados por fecha creacion
     @comments = Comment.all.order(created_at: :desc)
