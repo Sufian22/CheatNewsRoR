@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  mount_devise_token_auth_for 'User', at: 'auth'
+  #mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  #mount_devise_token_auth_for 'User', at: 'auth'
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/admin')
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  get 'newest' => 'home#index'
   get 'home/newcomment'
   get 'home/newreply'
   post 'home/createcomment'
