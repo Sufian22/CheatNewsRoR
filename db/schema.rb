@@ -13,32 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160501182829) do
 
-  create_table "comments", force: :cascade do |t|
-    t.text     "texto"
-    t.integer  "user_id"
-    t.integer  "submission_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "replies", force: :cascade do |t|
-    t.text     "texto"
-    t.integer  "user_id"
-    t.integer  "comment_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "submissions", force: :cascade do |t|
-    t.string   "link"
-    t.text     "description"
-    t.integer  "tipo"
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "title"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
     t.string   "uid",                    default: "",      null: false
@@ -67,5 +41,33 @@ ActiveRecord::Schema.define(version: 20160501182829) do
   add_index "users", ["email"], name: "index_users_on_email"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "texto"
+    t.integer  "user_id"
+    t.integer  "submission_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.text     "texto"
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.string   "link"
+    t.text     "description"
+    t.integer  "tipo"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+  end
+
 
 end
