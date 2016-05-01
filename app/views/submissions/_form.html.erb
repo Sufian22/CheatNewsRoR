@@ -1,55 +1,38 @@
-<%= form_for @submission, :html => { :class => "form-horizontal submission" } do |f| %>
-
-  <% if @submission.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@submission.errors.count, "error") %> prohibited this submission from being saved:</h3>
-      </div>
-      <div class="panel-body">
+<%= form_for(@submission) do |f| %>
+    <% if @submission.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
+  
         <ul>
-        <% @submission.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+        <% @submission.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
         </ul>
       </div>
+    <% end %>
+  
+    <div class="field">
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
     </div>
+    <div class="field">
+      <%= f.label :link %><br>
+      <%= f.url_field :link %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br>
+      <%= f.text_area :description %>
+    </div>
+    
+  
+    <%= f.hidden_field :user_id, value: current_user%>
+  
+ 
+  
+    <div class="actions">
+      <%= f.submit "add comment" %>
+    </div>
+    
+    
+    
   <% end %>
-
-  <div class="form-group">
-    <%= f.label :link, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :link, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:link) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :description, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :description, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:description) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :tipo, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :tipo, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:tipo) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :user_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :user_id, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:user_id) %>
-  </div>
-
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                submissions_path, :class => 'btn btn-default' %>
-    </div>
-  </div>
-
-<% end %>
