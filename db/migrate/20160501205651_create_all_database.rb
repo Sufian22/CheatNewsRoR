@@ -1,4 +1,4 @@
-class DeviseTokenAuthCreateUsers < ActiveRecord::Migration
+class CreateAllDatabase < ActiveRecord::Migration
   def change
     create_table(:users) do |t|
       ## Required
@@ -50,5 +50,39 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration
     add_index :users, :reset_password_token, :unique => true
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
+
+
+    # -------- Submissions ----------
+
+    create_table :submissions do |t|
+      t.string :title
+      t.string :link
+      t.text :description
+      t.integer :tipo
+      t.integer :user_id
+      t.references :user, index: true, foreign_key: true
+      t.timestamps null: false
+    end
+
+    # --------  Comments ------------
+
+    create_table :comments do |t|
+      t.text :texto
+      t.integer :user_id
+      t.integer :submission_id
+
+      t.timestamps null: false
+    end
+
+    # --------- Replies --------------
+
+    create_table :replies do |t|
+      t.text :texto
+      t.integer :user_id
+      t.integer :comment_id
+
+      t.timestamps null: false
+    end
+
   end
 end
