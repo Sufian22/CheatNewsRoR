@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  get 'newest' => 'home#index'
   get 'home/newcomment'
   get 'home/newreply'
   post 'home/createcomment'
