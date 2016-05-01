@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get '/signout', to: 'sessions#destroy', as: 'signout'
 
-  get '//auth/facebook/callback' => 'home#index'
-
   resources :submissions
   resources :replies
   resources :comments
