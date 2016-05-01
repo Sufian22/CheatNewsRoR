@@ -12,7 +12,7 @@
           <% if sub.tipo == 1 %>
               <%= link_to sub.title.to_s + " (source)", sub.link %>
           <% elsif sub.tipo == 2 %>
-              <%= link_to sub.description, home_newcomment_path(:submission_id => sub.id) %>
+              <%= link_to sub.title, home_newcomment_path(:submission_id => sub.id) %>
           <% end %>
         </li>
           <p> XX Points | <%= "User " + sub.user_id.to_s %> | <%= link_to sub.comments.length.to_s + " Comments",
