@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
 
   get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/')
+  get 'auth/failure', to: redirect('/admin')
   get '/signout', to: 'sessions#destroy', as: 'signout'
 
   resources :submissions
