@@ -4,19 +4,24 @@
 
 </head>
 <body>
-
-<div style="margin-left: 20%">
-  <ol>
-    <% @comments.each do |comment| %>
-        <tr>
-          <td><%= link_to comment.id, comment_path(comment) %></td>
-          <td><%= comment.texto %></td>
-          <td><%= comment.user_id %></td>
-          <td><%= comment.submission_id %></td>
-          <td><%=l comment.created_at %></td>
-        </tr>
-    <% end %>
-  </ol>
-</div>
+  <div style="background-color: whitesmoke">
+    <ul>
+      <% @comments.each do |comment| %>
+          <table style="border: 0; margin-bottom: 1%">
+            <tbody>
+              <tr>
+                <% if current_user and (current_user.id != comment.user_id) %>
+                    <%= link_to "^", like_comment_path(comment), method: :put %>
+                <% else %>
+                    <%= "*" %>
+                <% end %>
+                <%= "#{comment.votes_for.size} points | " %>
+                <%= "by " + current_user.name  %>
+              </tr>
+            </tbody>
+          </table>
+      <% end %>
+    </ul>
+  </div>
 </body>
 </html>
