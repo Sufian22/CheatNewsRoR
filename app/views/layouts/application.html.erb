@@ -24,7 +24,7 @@
                   <%= menu_group pull: :right do %>
                       <% if current_user %>
                           <%= menu_text "Signed in as: " %>
-                          <%= menu_item current_user.name, profile_path %>
+                          <%= menu_item current_user.name, home_edituser_path %>
                           <%= menu_item "Sign Out", signout_path %>
                       <% else %>
                           <%= menu_item "Sign in with Facebook", "/auth/facebook" %>

@@ -85,17 +85,12 @@ class HomeController < ApplicationController
     redirect_to home_newcomment_path(:submission_id => @submission.id)
   end
 
-  def profile
+  def edituser
     @user = current_user
   end
   
-  def updateprofile
-    @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
-      # Handle a successful update.
-    else
-      render 'edit'
-    end
+  def updateuser
+    redirect_to '/'
   end 
   
   private
