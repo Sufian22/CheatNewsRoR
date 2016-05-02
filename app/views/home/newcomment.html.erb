@@ -9,7 +9,11 @@
       <tbody>
         <tr>
           <strong>
-            <%= link_to "^", like_submission_path(@submission), method: :put %>
+            <% if current_user and (current_user.id != @submission.user_id) %>
+                <%= link_to "^", like_submission_path(@submission), method: :put %>
+            <% else %>
+                <%= "*" %>
+            <% end %>
             <% if @submission.tipo == 1 %>
               <%= link_to "URL: " + @submission.title, @submission.link %>
             <% elsif @submission.tipo == 2%>
@@ -47,9 +51,14 @@
                 </div>
                 <%= c.hidden_field :user_id, :class => 'form-control' %>
                 <%= c.hidden_field :submission_id, :class => 'form-control' %>
-                <div class="actions">
-                  <%= c.submit "add comment" %>
-                </div>
+                <% if current_user %>
+                  <div class="actions">
+                    <%= c.submit "add comment" %>
+                  </div>
+                <% else %>
+                  <p><strong>Sign in if you want to comment, reply a comment or vote!</strong></p>
+                <% end %>
+
             <% end %>
           </td>
         </tr>
@@ -61,22 +70,33 @@
         <% if @submission.comments.length > 0 %>
           <% @submission.comments.each do |comment| %>
             <li style="color: grey">
-              <%= link_to "^", like_comment_path(comment), method: :put %>
+              <% if current_user and (current_user.id != comment.user_id) %>
+                  <%= link_to "^", like_comment_path(comment), method: :put %>
+              <% else %>
+                  <%= "*" %>
+              <% end %>
               <%= "#{comment.votes_for.size} points | " %>
               <%= "by " + User.find(comment.user_id).name + " | at: " %>
               <%= comment.created_at %>
             </li>
             <p> <%= comment.texto %> </p>
-            <p><u><%= link_to "reply", home_newreply_path(:comment_id => comment.id) %></u></p>
+            <% if current_user %>
+              <p><u><%= link_to "reply", home_newreply_path(:comment_id => comment.id) %></u></p>
+            <% end %>
             <ul>
               <% if comment.replies.length > 0 %>
                 <ul>
                   <% comment.replies.each do |reply| %>
                     <li style="color: grey">
-                      <%= link_to "^", like_reply_path(reply), method: :put %>
+                      <% if current_user and (current_user.id != reply.user_id) %>
+                          <%= link_to "^", like_reply_path(reply), method: :put %>
+                      <% else %>
+                          <%= "*" %>
+                      <% end %>
                       <%= "#{reply.votes_for.size} points | " %>
                       <%= "by " + User.find(reply.user_id).name + " | at: " %>
-                      <%= reply.created_at %> </li>
+                      <%= reply.created_at %>
+                    </li>
                     <p><%= reply.texto %></p>
                   <% end %>
                 </ul>

@@ -9,7 +9,11 @@
     <ol>
       <% @submissions.each do |sub| %>
         <li>
-          <%= link_to "^", like_submission_path(sub), method: :put %>
+          <% if current_user and (current_user.id != sub.user_id) %>
+              <%= link_to "^", like_submission_path(sub), method: :put %>
+          <% else %>
+              <%= "*" %>
+          <% end %>
           <% if sub.tipo == 1 %>
               <%= link_to sub.title.to_s + " (source)", sub.link %>
           <% elsif sub.tipo == 2 %>

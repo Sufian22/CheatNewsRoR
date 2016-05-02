@@ -32,8 +32,8 @@ Rails.application.routes.draw do
 
   root 'home#index'
   
-  get 'home/news'
-  get 'home/asks'
+  get 'home/news', as: 'newest'
+  get 'home/asks', as: 'asks'
   get 'home/newcomment'
   get 'home/newreply'
   get 'home/newsubmission'

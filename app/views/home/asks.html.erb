@@ -4,23 +4,29 @@
 
 </head>
 <body>
-
-  <div style="margin-left: 20%">
-    <ol>
+<div style="background-color: whitesmoke">
+  <ol>
+    <% if not @asks.nil? %>
       <% @asks.each do |ask| %>
-      <% if ask.tipo == 2 %>
-        <li>
-          
-              
+          <li>
+            <% if current_user and (current_user.id != ask.user_id) %>
+                <%= link_to "^", like_submission_path(ask), method: :put %>
+            <% else %>
+                <%= "*" %>
+            <% end %>
             <%= link_to ask.title, home_newcomment_path(:submission_id => ask.id) %>
-          
-            </li>
-              <p> XX Points | <%= "User " + ask.user_id.to_s %> | <%= link_to ask.comments.length.to_s + " Comments",
-                                    home_newcomment_path(:submission_id => ask.id) %></p>
-          
+          </li>
+          <p>
+            <%= "#{ask.votes_for.size} points | " %>
+            <%= User.find(ask.user_id).name + " | " %>
+            <%= link_to ask.comments.length.to_s + " Comments",
+                        home_newcomment_path(:submission_id => ask.id) %>
+          </p>
       <% end %>
-      <% end %>
-    </ol>
-  </div>
+    <% else %>
+        <p><strong> ¡No asks available, submit a new one! </strong></p>
+    <% end %>
+  </ol>
+</div>
 </body>
 </html>

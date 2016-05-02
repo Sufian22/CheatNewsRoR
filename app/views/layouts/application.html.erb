@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cheatnews</title>
+    <title>Cheat News</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
@@ -29,17 +29,17 @@
                       		<%= link_to 'Cheat News', root_path %>
                       	</b>
                         <span class="topsel">
-                      	   <%= link_to 'new', home_news_path %>
+                      	   <%= link_to 'new', newest_path %>
+                           | <%= link_to 'ask', asks_path %>
+                      	   | <%= link_to 'submit', home_newsubmission_path %>
                         </span>
-                      	| <%= link_to 'ask', home_asks_path %>
-                      	| <%= link_to 'submit', home_newsubmission_path %>
                       </span>
                     </td>
                     <td style="text-align:right;padding-right:4px;">
                        <span class="pagetop">
                         
                         <% if current_user %>
-                            Signed in as <strong><%= link_to current_user.name, 'home#profile' %></strong>!
+                            Signed in as <strong><%= link_to current_user.name, 'home#profile' %></strong>
                             <%= link_to "Sign out", signout_path, id: "sign_out" %>
                         <% else %>
                             <%= link_to "Sign in with Facebook", "/auth/facebook" %>

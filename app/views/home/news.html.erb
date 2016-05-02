@@ -4,22 +4,28 @@
 
 </head>
 <body>
-
-  <div style="margin-left: 20%">
+  <div style="background-color: whitesmoke">
     <ol>
-      <% @news.each do |new| %>
-        <li>
-          <% if new.tipo == 1 %>
+      <% if not @news.nil? %>
+        <% @news.each do |new| %>
+            <li>
+              <% if current_user and (current_user.id != new.user_id) %>
+                <%= link_to "^", like_submission_path(new), method: :put %>
+              <% else %>
+                <%= "*" %>
+              <% end %>
               <%= link_to new.title.to_s + " (source)", new.link %>
-          <% elsif new.tipo == 2 %>
-              <%= link_to new.title, home_newcomment_path(:submission_id => new.id) %>
-          <% end %>
-        </li>
-          <p> XX Points | <%= "User " + new.user_id.to_s %> | <%= link_to new.comments.length.to_s + " Comments",
-                                    home_newcomment_path(:submission_id => new.id) %></p>
+            </li>
+            <p>
+              <%= "#{new.votes_for.size} points | " %>
+              <%= User.find(new.user_id).name + " | " %>
+              <%= link_to new.comments.length.to_s + " Comments",
+                          home_newcomment_path(:submission_id => new.id) %></p>
+        <% end %>
+        <% else %>
+          <p><strong> ¡No news available, submit a new one! </strong></p>
       <% end %>
     </ol>
   </div>
-
 </body>
 </html>

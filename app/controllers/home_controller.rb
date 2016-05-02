@@ -4,16 +4,17 @@ class HomeController < ApplicationController
 
   def index
     # Para la página principal, donde saldrán todas las submissions sin ningun criterio
-    @submissions = Submission.all
+    @submissions = Submission.all.select {|new| new.tipo == 1}.sort { |x,y| y <=> x}
   end
 
-  def new
-    # Para la ventana news, las submissions más recientes
-    @news = Submission.select(tipo == 1).order(created_at: :desc)
+  def news
+    # Las submissions más recientes, tanto URL como ASK
+    @news = Submission.all.order(created_at: :desc)
   end
 
   def asks
-    @asks = Submission.select(tipo == 2).order(created_at: :desc)
+    # Las submissions Ask más recientes
+    @asks = Submission.all.select{|new| new.tipo == 2}.sort { |x,y| y <=> x}
   end 
   
   def comments
