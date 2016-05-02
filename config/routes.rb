@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   
   get 'home/news', as: 'newest'
   get 'home/asks', as: 'asks'
+  get 'home/threads', as: 'threads'
   get 'home/newcomment'
   get 'home/newreply'
   get 'home/newsubmission'

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<div style="margin-left: 20%">
+  <ol>
+    <% @comments.each do |comment| %>
+        <tr>
+          <td><%= link_to comment.id, comment_path(comment) %></td>
+          <td><%= comment.texto %></td>
+          <td><%= comment.user_id %></td>
+          <td><%= comment.submission_id %></td>
+          <td><%=l comment.created_at %></td>
+        </tr>
+    <% end %>
+  </ol>
+</div>
+</body>
+</html>
