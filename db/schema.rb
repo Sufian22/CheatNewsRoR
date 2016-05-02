@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502074841) do
+ActiveRecord::Schema.define(version: 20160502133835) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "texto"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160502074841) do
     t.integer  "submission_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "valoracio"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160502074841) do
     t.integer  "comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "valoracio"
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -37,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160502074841) do
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "valoracio"
   end
 
   add_index "submissions", ["user_id"], name: "index_submissions_on_user_id"
@@ -64,6 +67,7 @@ ActiveRecord::Schema.define(version: 20160502074841) do
     t.text     "tokens"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "about"
   end
 
   add_index "users", ["email"], name: "index_users_on_email"

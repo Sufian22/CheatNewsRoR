@@ -13,12 +13,12 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'acts_as_votable'
-gem 'omniauth'
+#gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'devise'
-gem 'devise_token_auth'
+#gem 'devise'
+#gem 'devise_token_auth'
 gem 'rails_admin'
 
 # Use jquery as the JavaScript library

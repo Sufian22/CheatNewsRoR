@@ -51,11 +51,17 @@ class HomeController < ApplicationController
 
   def newsubmission
     # Para la ventana de creación de nueva submission
-    @submission = Submission.new
+    if current_user
+      @submission = Submission.new
+      #@submission.update(valoracio: @submission.votes_for.size)
+    else
+      redirect_to '/auth/facebook'
+    end
   end
   
   def createsubmission
     @submission = Submission.new(submission_params)
+    @submission.user_id = current_user.id
 
     if @submission.link.empty?
       @submission.tipo = 2

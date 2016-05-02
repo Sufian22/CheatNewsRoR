@@ -66,8 +66,9 @@ class SubmissionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   def upvote
-    if(current_user)
+    if current_user
       @submission = Submission.find(params[:id])
       @submission.liked_by current_user
       @submission.update(valoracio: @submission.votes_for.size)
@@ -75,7 +76,6 @@ class SubmissionsController < ApplicationController
     else # ve de l'api
       @submission = Submission.find(params[:id])
       @user = User.find(params[:user_id])
-
     end
   end
 

@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  mount_devise_token_auth_for 'User', at: 'auth'
 
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/admin')
+  get 'auth/:provider/callback', to: 'sessions#create', :via => 'get'
+  get 'auth/failure', to: redirect('/')
   get '/signout', to: 'sessions#destroy', as: 'signout'
 
   resources :submissions
@@ -12,6 +11,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :users
   resources :sessions, only: [:create, :destroy]
+
   resources :submissions do
     member do
       put "like", to: "submissions#upvote"
@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   post 'home/createcomment'
   post 'home/createreply'
   post 'home/createsubmission'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

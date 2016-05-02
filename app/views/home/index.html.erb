@@ -5,17 +5,18 @@
 </head>
 <body>
 
-  <div style="margin-left: 20%">
+  <div>
     <ol>
       <% @submissions.each do |sub| %>
         <li>
+          <%= link_to "^", like_submission_path(sub), method: :put %>
           <% if sub.tipo == 1 %>
               <%= link_to sub.title.to_s + " (source)", sub.link %>
           <% elsif sub.tipo == 2 %>
               <%= link_to sub.title, home_newcomment_path(:submission_id => sub.id) %>
           <% end %>
         </li>
-          <p> XX Points | <%= "User " + sub.user_id.to_s %> | <%= link_to sub.comments.length.to_s + " Comments",
+          <p> <%= "#{sub.votes_for.size} points" %> | <%= User.find(sub.user_id).name %> | <%= link_to sub.comments.length.to_s + " Comments",
                                     home_newcomment_path(:submission_id => sub.id) %></p>
       <% end %>
     </ol>
