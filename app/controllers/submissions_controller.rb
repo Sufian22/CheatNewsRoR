@@ -66,6 +66,18 @@ class SubmissionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def upvote
+    if(current_user)
+      @submission = Submission.find(params[:id])
+      @submission.liked_by current_user
+      @submission.update(valoracio: @submission.votes_for.size)
+      redirect_to root_path
+    else # ve de l'api
+      @submission = Submission.find(params[:id])
+      @user = User.find(params[:user_id])
+
+    end
+  end
 
   def formatted_url(submissionurl)
       url_format=submissionurl.split(".").second

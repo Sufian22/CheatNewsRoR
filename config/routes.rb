@@ -12,6 +12,23 @@ Rails.application.routes.draw do
   resources :comments
   resources :users
   resources :sessions, only: [:create, :destroy]
+  resources :submissions do
+    member do
+      put "like", to: "submissions#upvote"
+    end
+  end
+
+  resources :comments do
+    member do
+      put "like", to: "comments#upvote"
+    end
+  end
+
+  resources :replies do
+    member do
+      put "like", to: "replies#upvote"
+    end
+  end
 
   root 'home#index'
   

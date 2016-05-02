@@ -63,6 +63,20 @@ class RepliesController < ApplicationController
     end
   end
 
+  def upvote
+    if(current_user)
+      @reply = Reply.find(params[:id])
+      @reply.liked_by current_user
+      @reply.update(valoracio: @reply.votes_for.size)
+      redirect_to "/submissions/#{@reply.submission_id}"
+
+    else #ve de l'api
+      @reply = Reply.find(params[:id])
+      @user = User.find(params[:user_id])
+
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reply

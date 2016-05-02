@@ -63,6 +63,18 @@ class CommentsController < ApplicationController
     end
   end
 
+  def upvote
+    if(current_user)
+      @comment = Comment.find(params[:id])
+      @comment.liked_by current_user
+      @comment.update(valoracio: @comment.votes_for.size)
+      redirect_to "/submissions/#{@comment.submission_id}"
+    else #ve de l'api
+      @comment = Comment.find(params[:id])
+      @user = User.find(params[:user_id])
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
