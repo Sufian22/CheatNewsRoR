@@ -1,58 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
   <head>
     <title>Cheat News</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
-  
-  
-                              <!-- Barra navegacional -->
-  
-    <!--<ul class="nav nav-pills" style="margin-left: 20%">
-      <li role="presentation"><%= link_to 'Cheat News', root_path %></li>
-    </ul>-->
-    
   </head>
   <body>
     <center>
-      <table class="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+      <table width="85%">
         <tbody>
           <tr>
-            <td bgcolor="#ff6600">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
-                <tbody>
-                  <tr>
-                    <td style="line-height:12pt; height:10px;">
-                      <span class="pagetop">
-                        <b class="brandname">
-                      		<%= link_to 'Cheat News', root_path %>
-                      	</b>
-                        <span class="topsel">
-                      	   <%= link_to 'new', newest_path %>
-                           | <%= link_to 'ask', asks_path %>
-                      	   | <%= link_to 'submit', home_newsubmission_path %>
-                           | <%= link_to 'threads', threads_path %>
-                        </span>
-                      </span>
-                    </td>
-                    <td style="text-align:right;padding-right:4px;">
-                       <span class="pagetop">
-                        
-                        <% if current_user %>
-                            Signed in as <strong><%= link_to current_user.name, profile_path %></strong>
-                            <%= link_to "Sign out", signout_path, id: "sign_out" %>
-                        <% else %>
-                            <%= link_to "Sign in with Facebook", "/auth/facebook" %>
-                        <% end %>
-                       </span>
-                     </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
+            <th>
+              <%= nav_bar static: :top, brand: "Cheat News", responsive: true do %>
+                  <%= menu_group do %>
+                      <%= menu_item "New", newest_path %>
+                      <%= menu_item "Ask", asks_path %>
+                      <% if current_user %>
+                        <%= menu_item "Threads", threads_path %>
+                      <% end %>
+                      <%= menu_item "Submit", home_newsubmission_path %>
+                  <% end %>
+                  <%= menu_group pull: :right do %>
+                      <% if current_user %>
+                          <%= menu_text "Signed in as: " %>
+                          <%= menu_item current_user.name, profile_path %>
+                          <%= menu_item "Sign Out", signout_path %>
+                      <% else %>
+                          <%= menu_item "Sign in with Facebook", "/auth/facebook" %>
+                      <% end %>
+                  <% end %>
+              <% end %>
+            </th>
           </tr>
-          <tr style="height:10px"></tr>
           <tr>
             <td>
               <%= yield %>

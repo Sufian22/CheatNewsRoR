@@ -20,8 +20,11 @@
               <%= link_to sub.title, home_newcomment_path(:submission_id => sub.id) %>
           <% end %>
         </li>
-          <p> <%= "#{sub.votes_for.size} points" %> | <%= User.find(sub.user_id).name %> | <%= link_to sub.comments.length.to_s + " Comments",
-                                    home_newcomment_path(:submission_id => sub.id) %></p>
+        <p>
+          <%= "#{sub.votes_for.size} points" %> |
+          <%= User.find(sub.user_id).name %> |
+          <%= link_to sub.comments.length.to_s + " Comments", home_newcomment_path(:submission_id => sub.id) %>
+        </p>
       <% end %>
     </ol>
   </div>

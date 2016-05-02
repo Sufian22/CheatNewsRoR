@@ -17,9 +17,14 @@ class HomeController < ApplicationController
     @asks = Submission.all.select{|new| new.tipo == 2}.sort { |x,y| y <=> x}
   end 
   
-  def comments
+  def threads
     # Para la ventana comentarios, ordenados por fecha creacion
-    @comments = Comment.all.order(created_at: :desc)
+    if current_user
+      @comments = Comment.all.select{|comment| comment.user_id == current_user.id}
+      @replies = Reply.all.select{|reply| reply.user_id == current_user.id}
+    else
+      redirect_to '/auth/facebook'
+    end
   end
 
   def newreply
