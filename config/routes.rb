@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get 'home/news', as: 'newest'
   get 'home/asks', as: 'asks'
   get 'home/threads', as: 'threads'
+  get 'home/profile', as: 'profile' 
   get 'home/newcomment'
   get 'home/newreply'
   get 'home/newsubmission'
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
   post 'home/createcomment'
   post 'home/createreply'
   post 'home/createsubmission'
+  post 'home/updateprofile'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
