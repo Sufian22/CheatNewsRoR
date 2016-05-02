@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+    <body>
+        <div>
+            <p>
+              <strong>user:</strong>
+              <font color = 'green'><%= @user.name %></font>
+            </p>
+            <p> 
+              <strong>created:</strong> <%= time_ago_in_words(@user.created_at) unless @user.created_at.blank? %> ago </p>
+            </p>
+            <p>  
+              <%= form_for(@user, url: home_updateprofile_path) do |f| %>
+                <div class="field">
+                  <strong><%= f.label :about, "about:" %><br></strong>
+                  <%= f.text_area :about %>
+                </div>
+                
+                <div class="actions">
+                    <%= f.submit "update" %>
+                </div>
+              <% end %>
+            </p>
+        </div>
+    </body>    
+</html>

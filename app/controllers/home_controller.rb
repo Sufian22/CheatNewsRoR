@@ -82,8 +82,16 @@ class HomeController < ApplicationController
 
   def profile
     @user = current_user
-
   end
+  
+  def updateprofile
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      # Handle a successful update.
+    else
+      render 'edit'
+    end
+  end 
   
   private
 
@@ -108,6 +116,10 @@ class HomeController < ApplicationController
 
   def submission_params
       params.require(:submission).permit(:title, :link, :description, :tipo)
+  end
+  
+  def user_params
+      params.require(:user).permit(:about)
   end
     
 end
