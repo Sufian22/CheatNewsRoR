@@ -4,51 +4,88 @@
 
 </head>
 <body>
+  <div style="background-color: whitesmoke">
+    <table style="border: 0; margin-bottom: 1%">
+      <tbody>
+        <tr>
+          <strong>
+            <%= link_to "^", like_submission_path(@submission), method: :put %>
+            <% if @submission.tipo == 1 %>
+              <%= link_to "URL: " + @submission.title, @submission.link %>
+            <% elsif @submission.tipo == 2%>
+              <%= "Ask CN: " + @submission.title %>
+            <% end %>
+          </strong>
+        </tr>
+        <tr>
+          <td>
+            <%= "#{@submission.votes_for.size} points | " %>
+          </td>
+          <td>
+            <%= "by " + User.find(@submission.user_id).name + " | " %>
+          </td>
+          <td>
+            <%= link_to @submission.comments.length.to_s + " Comments", home_newcomment_path(:submission_id => @submission.id) %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <div style="margin-left: 20%;">
-    <h1> <%= @submission.title  %> </h1>
-    <h3> <%= @submission.description %> </h3>
-    <p style="margin-left: 20%"> <%= @submission.comments.length %> Comments</p>
-  </div>
+    <table style="border: 0">
+      <tbody>
+        <tr>
+          <td>
+            <%= @submission.description %>
+          </td>
+        </tr>
+        <tr><td></td></tr>
+        <tr>
+          <td>
+            <%= form_for(@comment, url: home_createcomment_path) do |c| %>
+                <div class="field">
+                  <%= c.text_area :texto %>
+                </div>
+                <%= c.hidden_field :user_id, :class => 'form-control' %>
+                <%= c.hidden_field :submission_id, :class => 'form-control' %>
+                <div class="actions">
+                  <%= c.submit "add comment" %>
+                </div>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <div style=" margin-left: 20% ">
-
-    <%= form_for(@comment, url: home_createcomment_path) do |c| %>
-        <div class="field">
-          <%= c.text_area :texto %>
-        </div>
-        <%= c.hidden_field :user_id, :class => 'form-control' %>
-        <%= c.hidden_field :submission_id, :class => 'form-control' %>
-
-        <div class="actions">
-          <%= c.submit "add comment" %>
-        </div>
-    <% end %>
-
-  </div>
-
-  <div style="margin-left: 20%">
-    <p> Comment list: </p>
-    <ul>
-      <% if @submission.comments.length > 0 %>
-        <% @submission.comments.each do |comment| %>
-          <li> by: <%= comment.user_id %> at: <%= comment.created_at %> </li>
-          <p> Comment: <%= comment.texto %> </p>
-              <p><%= link_to "reply", home_newreply_path(:comment_id => comment.id) %></p>
+    <div>
+      <ul>
+        <% if @submission.comments.length > 0 %>
+          <% @submission.comments.each do |comment| %>
+            <li style="color: grey">
+              <%= link_to "^", like_comment_path(comment), method: :put %>
+              <%= "#{comment.votes_for.size} points | " %>
+              <%= "by " + User.find(comment.user_id).name + " | at: " %>
+              <%= comment.created_at %>
+            </li>
+            <p> <%= comment.texto %> </p>
+            <p><u><%= link_to "reply", home_newreply_path(:comment_id => comment.id) %></u></p>
             <ul>
               <% if comment.replies.length > 0 %>
                 <ul>
                   <% comment.replies.each do |reply| %>
-                    <li> by: <%= reply.user_id %> at <%= reply.created_at %> </li>
-                    <p> Reply: <%= reply.texto %></p>
+                    <li style="color: grey">
+                      <%= link_to "^", like_reply_path(reply), method: :put %>
+                      <%= "#{reply.votes_for.size} points | " %>
+                      <%= "by " + User.find(reply.user_id).name + " | at: " %>
+                      <%= reply.created_at %> </li>
+                    <p><%= reply.texto %></p>
                   <% end %>
                 </ul>
               <% end %>
             </ul>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
+      </ul>
+    </div>
   </div>
-
 </body>
 </html>

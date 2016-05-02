@@ -1,6 +1,5 @@
 class RepliesController < ApplicationController
 
-  before_filter :authenticate_user!
   before_action :set_reply, only: [:show, :edit, :update, :destroy]
 
   # GET /replies
@@ -68,9 +67,9 @@ class RepliesController < ApplicationController
       @reply = Reply.find(params[:id])
       @reply.liked_by current_user
       @reply.update(valoracio: @reply.votes_for.size)
-      redirect_to "/submissions/#{@reply.submission_id}"
-
-    else #ve de l'api
+      @comment = Comment.find(@reply.comment_id)
+      redirect_to home_newcomment_path(:submission_id => Submission.find(@comment.submission_id).id)
+    else
       @reply = Reply.find(params[:id])
       @user = User.find(params[:user_id])
 

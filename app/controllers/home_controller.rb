@@ -7,13 +7,13 @@ class HomeController < ApplicationController
     @submissions = Submission.all
   end
 
-  def news
+  def new
     # Para la ventana news, las submissions más recientes
-    @news = Submission.all.order(created_at: :desc)
+    @news = Submission.select(tipo == 1).order(created_at: :desc)
   end
 
   def asks
-    @asks = Submission.all.order(created_at: :desc)
+    @asks = Submission.select(tipo == 2).order(created_at: :desc)
   end 
   
   def comments
@@ -22,10 +22,14 @@ class HomeController < ApplicationController
   end
 
   def newreply
-    @reply = Reply.new
-    @reply.comment_id = @comment.id
-    # Hardcoded, habrá que modificarlo por el usuario que esté en sesion
-    @reply.user_id = 2
+    if current_user
+      @reply = Reply.new
+      @reply.comment_id = @comment.id
+      # Hardcoded, habrá que modificarlo por el usuario que esté en sesion
+      @reply.user_id = current_user.id
+    else
+      redirect_to '/auth/facebook'
+    end
   end
 
   def createreply
@@ -39,14 +43,17 @@ class HomeController < ApplicationController
     # Para la ventana de creación de nuevo comentario
     @comment = Comment.new
     @comment.submission_id = @submission.id
-    # Hardcoded, habrá que modificarlo por el usuario que esté en sesion
-    @comment.user_id = 1
   end
 
   def createcomment
-    @comment = Comment.new(comment_params)
-    @comment.save!
-    redirect_to home_newcomment_path(:submission_id => @comment.submission_id)
+    if current_user
+      @comment = Comment.new(comment_params)
+      @comment.user_id = current_user.id
+      @comment.save!
+      redirect_to home_newcomment_path(:submission_id => @comment.submission_id)
+    else
+      redirect_to '/auth/facebook'
+    end
   end
 
   def newsubmission
@@ -58,7 +65,7 @@ class HomeController < ApplicationController
       redirect_to '/auth/facebook'
     end
   end
-  
+
   def createsubmission
     @submission = Submission.new(submission_params)
     @submission.user_id = current_user.id
@@ -71,7 +78,11 @@ class HomeController < ApplicationController
     @submission.save!
     redirect_to home_newcomment_path(:submission_id => @submission.id)
   end
-  
+
+  def profile
+    @user = current_user
+
+  end
   
   private
 

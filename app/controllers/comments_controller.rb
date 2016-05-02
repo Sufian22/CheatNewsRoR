@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
 
-  before_filter :authenticate_user!
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   # GET /comments
@@ -68,8 +67,8 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
       @comment.liked_by current_user
       @comment.update(valoracio: @comment.votes_for.size)
-      redirect_to "/submissions/#{@comment.submission_id}"
-    else #ve de l'api
+      redirect_to home_newcomment_path(:submission_id => @comment.submission_id)
+    else
       @comment = Comment.find(params[:id])
       @user = User.find(params[:user_id])
     end
