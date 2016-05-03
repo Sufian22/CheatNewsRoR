@@ -41,6 +41,7 @@ class HomeController < ApplicationController
 
   def createreply
     @reply = Reply.new(reply_params)
+    @reply.user_id = current_user.id
     @reply.save!
     @comment = Comment.find(@reply.comment_id)
     redirect_to home_newcomment_path(:submission_id => @comment.submission_id)
