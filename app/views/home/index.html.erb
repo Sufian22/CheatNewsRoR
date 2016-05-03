@@ -21,8 +21,9 @@
           <% end %>
         </li>
         <p>
-          <%= "#{sub.votes_for.size} points" %> |
-          <%= User.find(sub.user_id).name %> |
+          <%= "#{sub.votes_for.size} points" %>
+          <%= "by " + User.find(sub.user_id).name %>
+          <%= time_ago_in_words(sub.created_at) + " ago" %> |
           <%= link_to sub.comments.length.to_s + " Comments", home_newcomment_path(:submission_id => sub.id) %>
         </p>
       <% end %>

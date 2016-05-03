@@ -17,8 +17,9 @@
               <%= link_to new.title.to_s + " (source)", new.link %>
             </li>
             <p>
-              <%= "#{new.votes_for.size} points | " %>
-              <%= User.find(new.user_id).name + " | " %>
+              <%= "#{new.votes_for.size} points " %>
+              <%= "by " + User.find(new.user_id).name %>
+              <%= time_ago_in_words(new.created_at) + " ago | " %>
               <%= link_to new.comments.length.to_s + " Comments",
                           home_newcomment_path(:submission_id => new.id) %></p>
         <% end %>

@@ -10,10 +10,15 @@
       <tbody>
         <tr>
           <td>
-            <%= "by " + User.find(@comment.user_id).name %>
+            <% if current_user and (current_user.id != @comment.user_id) %>
+                <%= link_to "^", like_comment_path(@comment), method: :put %>
+                <%= "by " + User.find(@comment.user_id).name %>
+            <% else %>
+                <%= "* by " + User.find(@comment.user_id).name %>
+            <% end %>
           </td>
           <td>
-            <%= "at " + @comment.created_at.to_s + " | " %>
+            <%= time_ago_in_words(@comment.created_at) + " ago | " %>
           </td>
           <td>
             <%= link_to "parent", home_newcomment_path(:submission_id => @comment.submission_id) %>

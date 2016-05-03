@@ -10,18 +10,19 @@
           <table style="border: 0; margin-bottom: 1%">
             <tbody>
               <tr>
-                <% if current_user and (current_user.id != comment.user_id) %>
-                    <%= link_to "^", like_comment_path(comment), method: :put %>
-                <% else %>
-                    <%= "*" %>
-                <% end %>
-                <%= "#{comment.votes_for.size} points | "  %>
-                <%= "by " +  current_user.name  %>
-                <%= " " + time_ago_in_words(comment.submission.created_at) + " | "%>
-                <%= link_to "parent " , home_newcomment_path(:submission_id => comment.submission.id) %>
+                <p>
+                  <% if current_user and (current_user.id != comment.user_id) %>
+                      <%= link_to "^", like_comment_path(comment), method: :put %>
+                  <% else %>
+                      <%= "*" %>
+                  <% end %>
+                  <%= "#{comment.votes_for.size} points "  %>
+                  <%= "by " +  current_user.name  %>
+                  <%= " " + time_ago_in_words(comment.created_at) + " ago | "%>
+                  <%= link_to "parent " , home_newcomment_path(:submission_id => comment.submission.id) %>
 
-                <%= "| on: " %>
-                <%=  link_to  comment.submission.title, home_newcomment_path(:submission_id => comment.submission.id)  %>
+                  <%= "| on: " %>
+                  <%=  link_to  comment.submission.title, home_newcomment_path(:submission_id => comment.submission.id)  %>
                 </p>
                 <p>
                   <%= comment.texto %>
@@ -29,28 +30,36 @@
                 <% if current_user %>
                     <p><u><%= link_to "reply", home_newreply_path(:comment_id => comment.id) %></u></p>
                 <% end %>
-                <ul>
-                  <% if comment.replies.length > 0 %>
-                      <ul>
-                        <% comment.replies.each do |reply| %>
-                            <li style="color: grey">
-                              <% if current_user and (current_user.id != reply.user_id) %>
-                                  <%= link_to "^", like_reply_path(reply), method: :put %>
-                              <% else %>
-                                  <%= "*" %>
-                              <% end %>
-                              <%= "#{reply.votes_for.size} points | " %>
-                              <%= "by " + User.find(reply.user_id).name + " | at: " %>
-                              <%= time_ago_in_words(reply.created_at)%>
-                            </li>
-                            <p><%= reply.texto %></p>
-                        <% end %>
-                      </ul>
+              </tr>
+            </tbody>
+          </table>
+      <% end %>
+    </ul>
+    <ul>
+      <% @replies.each do |reply| %>
+          <table style="border: 0; margin-bottom: 1%">
+            <tbody>
+              <tr>
+                <p>
+                  <% if current_user and (current_user.id != reply.user_id) %>
+                      <%= link_to "^", like_reply_path(reply), method: :put %>
+                  <% else %>
+                      <%= "*" %>
                   <% end %>
-                </ul>
+                  <%= "#{reply.votes_for.size} points "  %>
+                  <%= "by " +  current_user.name  %>
+                  <%= " " + time_ago_in_words(reply.created_at) + " ago | "%>
+                  <%= link_to "parent " , home_newreply_path(:comment_id => reply.comment_id) %>
+
+                  <%= "| on: " %>
+                  <% comment = Comment.find(reply.comment_id) %>
+                  <% submission = Submission.find(comment.submission_id) %>
+                  <%=  link_to  submission.title, home_newcomment_path(:submission_id => submission.id)  %>
+                </p>
+                <p>
+                  <%= reply.texto %>
                 </p>
               </tr>
-
             </tbody>
           </table>
       <% end %>
