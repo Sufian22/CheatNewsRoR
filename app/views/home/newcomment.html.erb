@@ -24,10 +24,10 @@
         <tr>
           <p>
             <td>
-              <%= "#{@submission.votes_for.size} points " %>
+              <%= "#{@submission.votes_for.size} points by " %>
             </td>
             <td>
-              <%= "by " + User.find(@submission.user_id).name %>
+              <%= link_to User.find(@submission.user_id).name, home_showuser_path(:user_id => @submission.user_id) %>
             </td>
             <td>
               <%= time_ago_in_words(@submission.created_at) + " ago | " %>
@@ -74,7 +74,7 @@
       <ul>
         <% if @submission.comments.length > 0 %>
           <% @submission.comments.each do |comment| %>
-            <li style="color: grey">
+            <li>
               <p>
                 <% if current_user and (current_user.id != comment.user_id) %>
                     <%= link_to "^", like_comment_path(comment), method: :put %>
@@ -82,7 +82,7 @@
                     <%= "*" %>
                 <% end %>
                 <%= "[ #{comment.votes_for.size} points ] " %>
-                <%= User.find(comment.user_id).name %>
+                <%= link_to User.find(comment.user_id).name, home_showuser_path(:user_id => comment.user_id) %>
                 <%= time_ago_in_words(comment.created_at) + " ago" %>
                 </p>
             </li>
@@ -94,7 +94,7 @@
               <% if comment.replies.length > 0 %>
                 <ul>
                   <% comment.replies.each do |reply| %>
-                    <li style="color: grey">
+                    <li>
                       <p>
                         <% if current_user and (current_user.id != reply.user_id) %>
                             <%= link_to "^", like_reply_path(reply), method: :put %>
@@ -102,7 +102,7 @@
                             <%= "*" %>
                         <% end %>
                         <%= "[ #{reply.votes_for.size} points ]" %>
-                        <%= User.find(reply.user_id).name %>
+                        <%= link_to User.find(comment.user_id).name, home_showuser_path(:user_id => comment.user_id) %>
                         <%= time_ago_in_words(comment.created_at) + " ago" %>
                       </p>
                     </li>

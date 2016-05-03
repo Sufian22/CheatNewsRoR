@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   before_action :set_submission, only: [:newcomment]
   before_action :set_comment, only: [:newreply]
+  before_action :set_user, only: [:showuser, :mysubmissions]
 
   def index
     # Para la página principal, donde saldrán todas las submissions sin ningun criterio
@@ -82,7 +83,11 @@ class HomeController < ApplicationController
     end
 
     @submission.save!
-    redirect_to home_newcomment_path(:submission_id => @submission.id)
+    redirect_to newest_path
+  end
+
+  def showuser
+
   end
 
   def edituser
@@ -90,10 +95,21 @@ class HomeController < ApplicationController
   end
   
   def updateuser
-    redirect_to '/'
-  end 
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to home_showuser_path(:user_id => @user.id)
+    end
+  end
+
+  def mysubmissions
+
+  end
   
   private
+
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_submission

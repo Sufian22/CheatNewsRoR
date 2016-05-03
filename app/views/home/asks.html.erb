@@ -17,8 +17,8 @@
             <%= link_to ask.title, home_newcomment_path(:submission_id => ask.id) %>
           </li>
           <p>
-            <%= "#{ask.votes_for.size} points " %>
-            <%= "by " + User.find(ask.user_id).name %>
+            <%= "#{ask.votes_for.size} points by " %>
+            <%= link_to User.find(ask.user_id).name, home_showuser_path(:user_id => ask.user_id) %>
             <%= time_ago_in_words(ask.created_at) + " ago | " %>
             <%= link_to ask.comments.length.to_s + " Comments",
                         home_newcomment_path(:submission_id => ask.id) %>

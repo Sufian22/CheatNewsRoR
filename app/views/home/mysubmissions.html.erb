@@ -7,13 +7,9 @@
 
   <div style="background-color: whitesmoke">
     <ol>
-      <% @submissions.each do |sub| %>
+      <% @user.submissions.each do |sub| %>
         <li>
-          <% if current_user and (current_user.id != sub.user_id) %>
-              <%= link_to "^", like_submission_path(sub), method: :put %>
-          <% else %>
-              <%= "*" %>
-          <% end %>
+          <%= "*" %>
           <% if sub.tipo == 1 %>
               <%= link_to sub.title.to_s + " (source)", sub.link %>
           <% elsif sub.tipo == 2 %>
@@ -22,7 +18,7 @@
         </li>
         <p>
           <%= "#{sub.votes_for.size} points by " %>
-          <%= link_to User.find(sub.user_id).name, home_showuser_path(:user_id => sub.user_id) %>
+          <%= link_to @user.name, home_showuser_path(:user_id => @user.id) %>
           <%= time_ago_in_words(sub.created_at) + " ago" %> |
           <%= link_to sub.comments.length.to_s + " Comments", home_newcomment_path(:submission_id => sub.id) %>
         </p>

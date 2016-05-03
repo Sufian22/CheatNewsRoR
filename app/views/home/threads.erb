@@ -16,8 +16,8 @@
                   <% else %>
                       <%= "*" %>
                   <% end %>
-                  <%= "#{comment.votes_for.size} points "  %>
-                  <%= "by " +  current_user.name  %>
+                  <%= "#{comment.votes_for.size} points by "  %>
+                  <%= link_to current_user.name, home_showuser_path(:user_id => current_user.id) %>
                   <%= " " + time_ago_in_words(comment.created_at) + " ago | "%>
                   <%= link_to "parent " , home_newcomment_path(:submission_id => comment.submission.id) %>
 
@@ -46,8 +46,8 @@
                   <% else %>
                       <%= "*" %>
                   <% end %>
-                  <%= "#{reply.votes_for.size} points "  %>
-                  <%= "by " +  current_user.name  %>
+                  <%= "#{reply.votes_for.size} points by "  %>
+                  <%= link_to current_user.name, home_showuser_path(:user_id => current_user.id) %>
                   <%= " " + time_ago_in_words(reply.created_at) + " ago | "%>
                   <%= link_to "parent " , home_newreply_path(:comment_id => reply.comment_id) %>
 

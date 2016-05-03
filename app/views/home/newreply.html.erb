@@ -11,11 +11,11 @@
         <tr>
           <td>
             <% if current_user and (current_user.id != @comment.user_id) %>
-                <%= link_to "^", like_comment_path(@comment), method: :put %>
-                <%= "by " + User.find(@comment.user_id).name %>
+                <%= link_to "^", like_comment_path(@comment), method: :put %> by
             <% else %>
-                <%= "* by " + User.find(@comment.user_id).name %>
+                <%= "* by " %>
             <% end %>
+            <%= link_to User.find(@comment.user_id).name, home_showuser_path(:user_id => @comment.user_id) %>
           </td>
           <td>
             <%= time_ago_in_words(@comment.created_at) + " ago | " %>

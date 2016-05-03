@@ -6,7 +6,7 @@
     <body>
         <div>
             <p>
-                <%= image_tag(@user.image) %>
+              <%= image_tag(@user.image) %>
             </p>
             <p>
               <strong>user:</strong>
@@ -23,19 +23,19 @@
               <strong>email:</strong>
               <%= @user.email %>
             </p>
-            </p>
-            <p>  
-              <%= form_for(@user, url: home_updateuser_path) do |f| %>
-                <div class="field">
-                  <strong><%= f.label :about, "about:" %><br></strong>
-                  <%= f.text_area :about %>
-                </div>
-                <div class="actions">
-                    <%= f.submit "update" %>
-                </div>
-              <% end %>
-            </p>
-            <p><%= link_to "Show profile", home_showuser_path(:user_id => @user.id) %></p>
+          <p>
+            <strong>about:</strong>
+            <%= @user.about %>
+          </p>
+          <p>
+            <% if current_user.id == @user.id %>
+                <%= link_to "Edit profile", home_edituser_path %>
+                <ul>
+                  <li><%= link_to "My comments", threads_path %></li>
+                  <li><%= link_to "My replies", threads_path %></li>
+                  <li><%= link_to "My submissions", mysubmissions_path(:user_id => current_user.id) %></li>
+                </ul>
+            <% end %>
         </div>
     </body>    
 </html>

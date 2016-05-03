@@ -14,11 +14,15 @@
               <% else %>
                 <%= "*" %>
               <% end %>
-              <%= link_to new.title.to_s + " (source)", new.link %>
+              <% if new.tipo == 1 %>
+                <%= link_to new.title.to_s + " (extern link)", new.link %>
+              <% elsif new.tipo == 2 %>
+                <%= link_to new.title.to_s, home_newcomment_path(:submission_id => new.id) %>
+              <% end %>
             </li>
             <p>
-              <%= "#{new.votes_for.size} points " %>
-              <%= "by " + User.find(new.user_id).name %>
+              <%= "#{new.votes_for.size} points by " %>
+              <%= link_to User.find(new.user_id).name, home_showuser_path(:user_id => new.user_id) %>
               <%= time_ago_in_words(new.created_at) + " ago | " %>
               <%= link_to new.comments.length.to_s + " Comments",
                           home_newcomment_path(:submission_id => new.id) %></p>
