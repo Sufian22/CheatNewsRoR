@@ -28,7 +28,7 @@
             <%= @user.about %>
           </p>
           <p>
-            <% if current_user.id == @user.id %>
+            <% if current_user and current_user.id == @user.id %>
                 <%= link_to "Edit profile", home_edituser_path %>
                 <ul>
                   <li><%= link_to "My comments", threads_path %></li>
