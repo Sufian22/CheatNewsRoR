@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   get 'auth/:provider/callback', to: 'sessions#create', :via => 'get'
-  get 'auth/failure', to: redirect('/')
+  get 'auth/failure', to: 'home#index'
   get '/signout', to: 'sessions#destroy', as: 'signout'
 
   resources :submissions

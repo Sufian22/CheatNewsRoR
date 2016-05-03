@@ -102,8 +102,8 @@
                             <%= "*" %>
                         <% end %>
                         <%= "[ #{reply.votes_for.size} points ]" %>
-                        <%= link_to User.find(comment.user_id).name, home_showuser_path(:user_id => comment.user_id) %>
-                        <%= time_ago_in_words(comment.created_at) + " ago" %>
+                        <%= link_to User.find(reply.user_id).name, home_showuser_path(:user_id => reply.user_id) %>
+                        <%= time_ago_in_words(reply.created_at) + " ago" %>
                       </p>
                     </li>
                     <p><%= reply.texto %></p>
