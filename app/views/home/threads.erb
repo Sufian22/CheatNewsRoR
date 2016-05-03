@@ -59,6 +59,27 @@
                 <p>
                   <%= reply.texto %>
                 </p>
+                <ul>
+                  <% if comment.replies.length > 0 %>
+                      <ul>
+                        <% comment.replies.each do |reply| %>
+                            <li>
+                              <p>
+                                <% if current_user and (current_user.id != reply.user_id) %>
+                                    <%= link_to "^", like_reply_path(reply), method: :put %>
+                                <% else %>
+                                    <%= "*" %>
+                                <% end %>
+                                <%= "[ #{reply.votes_for.size} points ]" %>
+                                <%= link_to User.find(reply.user_id).name, home_showuser_path(:user_id => reply.user_id) %>
+                                <%= time_ago_in_words(reply.created_at) + " ago" %>
+                              </p>
+                            </li>
+                            <p><%= reply.texto %></p>
+                        <% end %>
+                      </ul>
+                  <% end %>
+                </ul>
               </tr>
             </tbody>
           </table>
