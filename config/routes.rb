@@ -9,18 +9,18 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: "json" } do
     #We are going to list our resources here
     resources :sessions, :only => [:create, :destroy]
-    resources :users, :only => [:show, :create, :update, :destroy]
-    resources :submissions, :only => [:show, :index, :create, :update, :destroy] do
+    resources :users, :only => [:show, :create, :update]
+    resources :submissions, :only => [:show, :index, :create] do
       member do
         put "like", to: "submissions#upvote"
       end
     end
-    resources :comments, :only => [:show, :index, :create, :update, :destroy] do
+    resources :comments, :only => [:show, :index, :create] do
       member do
         put "like", to: "comments#upvote"
       end
     end
-    resources :replies, :only => [:show, :index, :create, :update, :destroy] do
+    resources :replies, :only => [:show, :index, :create] do
       member do
         put "like", to: "replies#upvote"
       end

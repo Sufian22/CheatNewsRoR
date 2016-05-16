@@ -23,8 +23,9 @@ class Api::RepliesController < ApplicationController
   end
 
   def update
-    reply = Reply.find(params[:id])
+    # Falta controlar que solo pueda modificar los suyos
 
+    reply = Reply.find(params[:id])
     if reply.update(reply_params)
       render json: reply, status: 200, location: [:api, reply]
     else
@@ -33,6 +34,8 @@ class Api::RepliesController < ApplicationController
   end
 
   def destroy
+    # Falta controlar que solo pueda modificar los suyos
+
     reply = Reply.find(params[:id])
     reply.destroy
     head 204

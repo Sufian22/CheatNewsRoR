@@ -23,8 +23,9 @@ class Api::CommentsController < ApplicationController
   end
 
   def update
-    comment = Comment.find(params[:id])
+    # Falta controlar que solo pueda modificar los suyos
 
+    comment = Comment.find(params[:id])
     if comment.update(comment_params)
       render json: comment, status: 200, location: [:api, comment]
     else
@@ -33,6 +34,8 @@ class Api::CommentsController < ApplicationController
   end
 
   def destroy
+    # Falta controlar que solo pueda modificar los suyos
+
     comment = Comment.find(params[:id])
     comment.destroy
     head 204

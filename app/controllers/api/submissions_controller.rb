@@ -1,6 +1,6 @@
 class Api::SubmissionsController < ApplicationController
 
-  before_action :authenticate_with_token!
+  #before_action :authenticate_with_token!
 
   respond_to :json
 
@@ -23,8 +23,9 @@ class Api::SubmissionsController < ApplicationController
   end
 
   def update
-    submission = Submission.find(params[:id])
+    # Falta controlar que solo pueda modificar los suyos
 
+    submission = Submission.find(params[:id])
     if submission.update(submission_params)
       render json: submission, status: 200, location: [:api, submission]
     else
@@ -33,6 +34,8 @@ class Api::SubmissionsController < ApplicationController
   end
 
   def destroy
+    # Falta controlar que solo pueda borrar los suyos
+
     submission = Submission.find(params[:id])
     submission.destroy
     head 204
