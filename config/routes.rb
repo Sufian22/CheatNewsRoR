@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # Esto lo que hace es tener una web del plan "api.cheatnews.heroku"
   namespace :api, defaults: { format: "json" }, constraints: {subdomain: 'api'}, path: '/' do
     #We are going to list our resources here
-    resources :users, :only => [:show]
+    resources :users, :only => [:show, :create, :update, :destroy]
 
 
   end
