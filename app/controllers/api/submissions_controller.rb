@@ -18,4 +18,17 @@ class Api::SubmissionsController < ApplicationController
   def show
   end
 
+  def update
+    if @submission.update(submission_params)
+      render json: submission,  status: 201, location: [api: submission]
+    else
+      render json: { errors: @submission.errors }, status: 422
+    end
+  end
+
+  def destroy
+    @submission.destroy
+    head 204
+  end
+
 end

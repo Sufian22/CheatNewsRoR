@@ -13,4 +13,19 @@ class Api::CommentsController < ApplicationController
   def show
   end
 
+  def update
+
+      if @comment.update(comment_params)
+        render json: comment, status: 201, location: [:api, comment]
+      else
+        render json: { errors: @comment.errors }, status: 422
+      end
+  end
+
+  def destroy
+    @comment.destroy
+    head 204
+  end
+
+
 end
