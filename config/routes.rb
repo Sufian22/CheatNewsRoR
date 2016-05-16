@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  get 'auth/:provider/callback', to: 'sessions#create', :via => 'get'
+  get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: 'home#index'
   get '/signout', to: 'sessions#destroy', as: 'signout'
 
@@ -17,42 +17,44 @@ Rails.application.routes.draw do
   end
 
 
-  #resources :users
-  #resources :sessions, only: [:create, :destroy]
+  resources :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
-  #resources :submissions do
-  #  member do
-  #    put "like", to: "submissions#upvote"
-  #  end
-  #end
+  resources :sessions, only: [:create, :destroy]
 
-  #resources :comments do
-  #  member do
-  #    put "like", to: "comments#upvote"
-  #  end
-  #end
+  resources :submissions do
+    member do
+      put "like", to: "submissions#upvote"
+    end
+  end
 
-  #resources :replies do
-  #  member do
-  #    put "like", to: "replies#upvote"
-  #  end
-  #end
+  resources :comments do
+    member do
+      put "like", to: "comments#upvote"
+    end
+  end
+
+  resources :replies do
+    member do
+      put "like", to: "replies#upvote"
+    end
+  end
 
   root 'home#index'
   
-  #get 'home/news', as: 'newest'
-  #get 'home/asks', as: 'asks'
-  #get 'home/threads', as: 'threads'
-  #get 'home/showuser'
-  #get 'home/edituser'
-  #get 'home/mysubmissions', as: 'mysubmissions'
-  #get 'home/newcomment'
-  #get 'home/newreply'
-  #get 'home/newsubmission'
-  #get 'home/createsubmission'
-  #post 'home/createcomment'
-  #post 'home/createreply'
-  #post 'home/createsubmission'
-  #patch 'home/updateuser'
+  get 'home/news', as: 'newest'
+  get 'home/asks', as: 'asks'
+  get 'home/threads', as: 'threads'
+  get 'home/showuser'
+  get 'home/edituser'
+  get 'home/mysubmissions', as: 'mysubmissions'
+  get 'home/newcomment'
+  get 'home/newreply'
+  get 'home/newsubmission'
+  get 'home/createsubmission'
+  post 'home/createcomment'
+  post 'home/createreply'
+  post 'home/createsubmission'
+  patch 'home/updateuser'
 
 end

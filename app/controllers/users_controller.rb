@@ -4,8 +4,6 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  #helper_method :getAuthor
-
   # GET /users
   # GET /users.json
   def index
@@ -89,11 +87,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-
   def user_params
     #params.require(:user).permit!
     params.permit(:name, :nickname, :image, :email, :uid, :provider, :password)
   end
-
 
 end
