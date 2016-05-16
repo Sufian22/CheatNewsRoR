@@ -1,5 +1,7 @@
 class Api::RepliesController < ApplicationController
 
+  before_action :authenticate_with_token!
+
   respond_to :json
 
   def index
@@ -19,7 +21,6 @@ class Api::RepliesController < ApplicationController
       render json: { errors: reply.errors }, status: 422
     end
   end
-
 
   def update
     reply = Reply.find(params[:id])

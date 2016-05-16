@@ -1,5 +1,7 @@
 class Api::CommentsController < ApplicationController
 
+  before_action :authenticate_with_token!
+
   respond_to :json
 
   def index

@@ -89,8 +89,7 @@ class SubmissionsController < ApplicationController
   end
   helper_method :formatted_url
   
-  
-  
+
   private
 
     def set_submission

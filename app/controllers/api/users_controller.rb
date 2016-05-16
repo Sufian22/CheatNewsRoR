@@ -1,5 +1,7 @@
 class Api::UsersController < ApplicationController
+
   before_action :authenticate_with_token!, only: [:update, :destroy]
+
   respond_to :json
 
   def index
