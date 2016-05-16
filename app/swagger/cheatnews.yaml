@@ -100,7 +100,7 @@ paths:
           schema:
             type: array
             $ref: '#/definitions/Comments'
-  /newcomment:
+  /home/newcomment:
     get:
       summary: Shows a form for adding comment to a submission
       description: |
@@ -126,7 +126,7 @@ paths:
           schema:
             $ref: '#/definitions/Replies'
             
-  /newsubmission:
+  /home/newsubmission:
     get:
       summary: Creates new submission
       description: |
