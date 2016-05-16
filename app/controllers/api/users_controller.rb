@@ -1,5 +1,9 @@
-class Api::SubmissionsController < ApplicationController
+class Api::UsersController < ApplicationController
   respond_to :json
+
+  def index
+    respond_with User.all
+  end
 
   def show
     respond_with User.find(params[:id])
@@ -33,7 +37,8 @@ class Api::SubmissionsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :nickname, :image, :about, :email, :uid, :provider,
+                                  :password, :password_confirmation)
   end
 
 end

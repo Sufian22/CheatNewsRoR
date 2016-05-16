@@ -1,6 +1,6 @@
 class Api::SubmissionsController < ApplicationController
 
-  helper_method :getAuthor
+  respond_to :json
 
   def index
     respond_with Submission.all
@@ -10,17 +10,37 @@ class Api::SubmissionsController < ApplicationController
     respond_with Submission.find(params[:id])
   end
 
-  def update
-    if @submission.update(submission_params)
-      render json: submission,  status: 201, location: [api: submission]
+  def create
+    submission = Submission.new(submission_params)
+
+    if submission.save
+      render json: submission, status: 201, location: [:api, submission]
     else
-      render json: { errors: @submission.errors }, status: 422
+      render json: { errors: submission.errors }, status: 422
+    end
+  end
+
+
+  def update
+    submission = Submission.find(params[:id])
+
+    if submission.update(submission_params)
+      render json: submission, status: 200, location: [:api, submission]
+    else
+      render json: { errors: submission.errors }, status: 422
     end
   end
 
   def destroy
-    @submission.destroy
+    submission = Submission.find(params[:id])
+    submission.destroy
     head 204
+  end
+
+  private
+
+  def submission_params
+    params.require(:submission).permit(:title, :link, :description, :tipo, :user_id)
   end
 
 end

@@ -1,18 +1,26 @@
 class Api::SessionsController < ApplicationController
 
+  respond_to :json
+
   def create
-    @user = User.from_omniauth(request.env['omniauth.auth'])
-    user = @user
-    session[:user_id] = @user.id
-    user.generate_authentication_token!
-    render json: user, status: 201, location: [:api, user]
-    redirect_to root_path
+    user_password = params[:session][:password]
+    user_email = params[:session][:email]
+    user = user_email.present? && User.find_by(email: user_email)
+
+    if user.valid_password? user_password
+      sign_in user, store :false
+      user.generate_authentication_token!
+      user.save
+      render json: user, status:200, location: [:api, user]
+    else
+      render json: { errors: "Invalid email or password" }, status: 422
+    end
   end
 
   def destroy
-    session[:user_id] = nil
-    session[:omniauth] = nil
-    redirect_to root_path
+    user = User.find_by(auth_token: params[:id])
+    user.generate_authentication_token!
+    user.save
     head 204
   end
 
