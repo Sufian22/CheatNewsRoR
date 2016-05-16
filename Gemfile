@@ -18,7 +18,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'swagger-docs'
-#gem 'devise'
+gem 'devise'
 #gem 'devise_token_auth'
 gem 'rails_admin'
 
@@ -58,6 +58,7 @@ group :production do
   gem 'rails_12factor', '0.0.2'
   gem 'responders'
 end
+
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

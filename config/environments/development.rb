@@ -39,11 +39,6 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-
-
-  # mailcatcher development example configuration
-  config.action_mailer.default_url_options = { :host => 'your-dev-host.dev' }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => 'your-dev-host.dev', :port => 1025 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
 end
