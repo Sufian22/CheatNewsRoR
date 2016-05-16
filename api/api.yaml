@@ -1,0 +1,466 @@
+swagger: '2.0'
+
+info:
+  title: Cheats news
+  description: ASW Web project
+  version: "1.0.0"
+  
+host: hackernews-mingjian.c9users.io
+basePath: /api
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+  - text/xml
+produces:
+  - application/json
+  - text/html
+
+paths:
+
+  /sessions:
+    post:
+      summary: post new session
+      tags:
+        - session
+      responses:
+        201:
+          description:  Session created
+        422:
+          description: Unprocessable Entity
+  /users:
+    post:
+      summary: post new user
+      tags:
+        - user
+      responses:
+        201:
+          description:  User created
+        422:
+          description: Unprocessable Entity
+          
+  /users/{id}:
+    get:
+      tags:
+        - User
+      summary: Get user by id
+      description: |
+        Return user with the corresponding id.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id of user
+          type: integer
+          required: true
+          default: 1
+      responses:
+        200:
+          description: Got User.
+          schema:
+            $ref: '#/definitions/User'
+        404:
+          description: User not found
+    put:
+      tags:
+        - Users
+      summary: Updates user profile
+      parameters:
+        - name: id
+          in: path
+          description: id of user
+          type: integer
+          required: true
+          default: 1
+        - name: name
+          in: query
+          description: Name of the user
+          required: false
+          type: string
+        - name: image
+          in: query
+          description: The link of the profile`s image
+          required: false
+          type: string
+        - name: about
+          in: query
+          description: The description for the user
+          required: false
+          type: string
+      responses:
+        200:
+          description: The profile of user has been updated successfully.
+          schema:
+            $ref: '#/definitions/User'
+        403:
+          description: Error
+    patch:
+      tags:
+        - Users
+      summary: Updates user profile
+      parameters:
+        - name: id
+          in: path
+          description: id of user
+          type: integer
+          required: true
+          default: 1
+        - name: name
+          in: query
+          description: Name of the user
+          required: false
+          type: string
+        - name: image
+          in: query
+          description: The link of the profile`s image
+          required: false
+          type: string
+        - name: about
+          in: query
+          description: The description for the user
+          required: false
+          type: string
+      responses:
+        200:
+          description: The profile of user has been updated successfully.
+          schema:
+            $ref: '#/definitions/User'
+        403:
+          description: Error
+  
+  /users/edit/{id}:
+    put:
+      tags:
+        - Users
+      summary: Updates user profile
+      parameters:
+        - name: id
+          in: path
+          description: id of user
+          type: integer
+          required: true
+          default: 1
+        - name: name
+          in: query
+          description: Name of the user
+          required: false
+          type: string
+        - name: image
+          in: query
+          description: The link of the profile`s image
+          required: false
+          type: string
+        - name: about
+          in: query
+          description: The description for the user
+          required: false
+          type: string
+      responses:
+        200:
+          description: The profile of user has been updated successfully.
+          schema:
+            $ref: '#/definitions/User'
+        403:
+          description: Error     
+  /comments:
+    get:
+      summary: Show lists of comments.
+      description: |
+        The Comments endpoint return a list of comments ordered by date, each comment contains information about their parent (a submission), comment's text, user name, date created and puntuation it has.
+      tags:
+        - Comments
+      responses:
+        200:
+          description: An array of comments
+          schema:
+            $ref: '#/definitions/Comments'
+        403:
+          description: Error
+    post:
+      summary: post new comment for the submission
+      tags:
+        - comments
+      responses:
+        201:
+          description: Comment created
+        404:
+          description: Submission not found
+        422:
+          description: Unprocessable Entity      
+  
+  /comments/{id}:
+    get:
+      tags:
+        - Comments
+      summary: Get comment by id
+      description: |
+        Return comment with the corresponding id.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id of comment
+          type: integer
+          required: true
+          default: 1
+      responses:
+        200:
+          description: Got Comment
+          schema:
+            $ref: '#/definitions/Comments'
+        404:
+          description: Comment not found
+          
+  /submissions:
+    get:
+      summary: Show lists of submissions.
+      description: |
+        The Submissions  return a list of comments ordered by date, each submission contains information about their title, link (if it has), description, type, user who posts the submission, date createdm and puntation it has.
+      tags:
+        - Submissions
+      responses:
+        200:
+          description: An array of submissions
+          schema:
+            $ref: '#/definitions/Submissions'
+        403:
+          description: Error
+    post:
+      summary: post new submission
+      tags:
+        - submissions
+      responses:
+        201:
+          description: Submission created
+        422:
+          description: Unprocessable Entity
+          
+          
+  /submissions/{id}:
+    get:
+      tags:
+        - Submissions
+      summary: Get submission by id
+      description: |
+        Return submission with the corresponding id.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id of submission
+          type: integer
+          required: true
+          default: 1
+      responses:
+        200:
+          description: Got Submission
+          schema:
+            $ref: '#/definitions/Submissions'
+        404:
+          description: Submission not found
+    
+  /replies:
+    get:
+      summary: Show lists of replies.
+      description: |
+        The Submissions  return a list of replies ordered by date, each reply contains information about their title, link (if it has), description, type, user who posts the submission, date createdm and puntation it has.
+      tags:
+        - Replies
+      responses:
+        200:
+          description: An array of replies
+          schema:
+            $ref: '#/definitions/Replies'
+        403:
+          description: Error
+    post:
+      summary: post new reply for the comment
+      tags:
+        - replies
+      responses:
+        201:
+          description: Reply created
+        404:
+          description: Comment not found
+        422:
+          description: Unprocessable Entity
+          
+  /replies/{id}:
+    get:
+      tags:
+        - Replies
+      summary: Get Reply by id
+      description: |
+        Return reply with the corresponding id.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id of reply
+          type: integer
+          required: true
+          default: 1
+      responses:
+        200:
+          description: Got Reply
+          schema:
+            $ref: '#/definitions/Replies'
+        404:
+          description: Reply not found
+          
+
+
+definitions:
+  Session:
+    type: object
+    properties:
+      user_id:
+        type: integer
+        description: User id
+      omniauth:
+        type: string
+        description: authentication with the omniauth-facebook
+  User:
+    type: object
+    properties:
+      provider:
+        type: string
+        description: Default value is email and can't be nullable.
+      uid:
+        type: string
+        description: Unique identifier representing a user and can't be nullable.
+      encrypted_password:
+        type: string 
+        description: User password
+      name:
+        type: string 
+        description: User name
+      image:
+        type: string
+        description: User profile image
+      email:
+        type: string 
+        description: User email. 
+      created_at:
+        type: string
+        format: date
+        description: Creation date of user
+      update_at:
+        type: string
+        format: date
+        description: Update date of user
+      about:
+        type: string 
+        description: User about
+  Comments:
+    type: object
+    properties:
+      texto:
+        type: string
+        description: comment content
+      user_id:
+        type: integer
+        description: user id
+      submission_id:
+        type: integer
+        description: submission id 
+      created_at: 
+        type: string 
+        format: date
+        description: Creation date of comment
+      updated_at:
+        type: string
+        format: date
+        description: Update date of comment
+      valoracio:
+        type: integer
+        description: Vote points
+  Replies:
+    type: object
+    properties:
+      texto:
+        type: string
+        description: reply content
+      user_id:
+        type: integer
+        description: user id
+      submission_id:
+        type: integer
+        description: submission id 
+      created_at: 
+        type: string 
+        format: date
+        description: Creation date of reply
+      updated_at:
+        type: string
+        format: date
+        description: Update date of reply
+      valoracio:
+        type: integer
+        description: Vote points
+  Submissions:
+    type: object
+    properties:
+      title:
+        type: string 
+        description: submission title
+      link: 
+        type: string
+        description: submission url link
+      description:
+        type: string
+        description: submission description
+      tipo:
+        type: integer
+        description: submission type, 1 represents submission with url link, 2 represents submission without url link.
+      user_id:
+        type: integer
+        description: author id of the submission
+      created_at: 
+        type: string 
+        format: date
+        description: Creation date of submission
+      updated_at:
+        type: string
+        format: date
+        description: Update date of submission
+      valoracio:
+        type: integer
+        description: Vote points
+  Votes:
+    type: object
+    properties:
+      votable_id: 
+        type: integer
+        description: vote id
+      votable_type:
+        type: string
+        description: type
+      voter_id:
+        type: integer
+        description: voter id 
+      voter_type:
+        type: string
+        description: voter type
+      vote_flag:
+        type: boolean
+        description: vote flag
+      vote_scope: 
+        type: string
+        description: vote scope
+      vote_weight:
+        type: integer
+        description: vote weight
+      created_at: 
+        type: string 
+        format: date
+        description: Creation date of vote
+      updated_at:
+        type: string
+        format: date
+        description: Update date of vote
