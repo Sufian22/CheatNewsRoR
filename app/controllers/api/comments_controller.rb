@@ -1,16 +1,16 @@
 class Api::CommentsController < ApplicationController
 
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.all
+    respond_with Comment.all
   end
 
   # GET /comments/1
   # GET /comments/1.json
   def show
+    respond_with Comment.find(params[:id])
   end
 
   def update

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+  before_create :generate_authentication_token!
   validates :auth_token, uniqueness: true
   has_many :submissions
   has_many :replies

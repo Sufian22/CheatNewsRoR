@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: "json" }, constraints: {subdomain: 'api'}, path: '/' do
     #We are going to list our resources here
     resources :users, :only => [:show, :create, :update, :destroy]
+    resources :sessions, :only => [:create, :destroy]
+    resources :submissions, :only => [:show, :index, :update]
+    resources :comments, :only => [:show, :index, :update, :destroy]
+    resources :replies, :only => [:show, :index, :update, :destroy]
+
 
 
   end
