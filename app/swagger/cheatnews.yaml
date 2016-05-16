@@ -6,7 +6,7 @@ info:
   version: "1.0.0"
   
 host: hackernews-mingjian.c9users.io
-basePath: /home
+basePath: /api
 schemes:
   - http
   - https
@@ -18,7 +18,7 @@ produces:
   - text/html
 
 paths:
-  /edituser:
+  /home/edituser:
     get:
       summary: Updates user profile
       description: |
@@ -32,7 +32,7 @@ paths:
             $ref: '#/definitions/User'
         403:
           description: Error
-  /showuser:
+  /home/showuser:
     get:
       summary: Shows user profile
       description: |
@@ -55,7 +55,7 @@ paths:
         404:
           description: User not found
           
-  /news:
+  /home/news:
     get:
       summary: Shows list of recents submissions.
       description: |
@@ -70,7 +70,7 @@ paths:
           schema:
             type: array
             $ref: '#/definitions/Submissions'
-  /asks:
+  /home/asks:
     get:
       summary: Shows list of recents submissions without the url link.
       description: |
@@ -86,7 +86,7 @@ paths:
             type: array
             $ref: '#/definitions/Submissions'
             
-  /threads:
+  /home/threads:
     get:
       summary: Shows list of user comments
       description: |
@@ -113,7 +113,7 @@ paths:
           description: Success the comment operation.
           schema:
             $ref: '#/definitions/Comments'
-  /newreply:
+  /home/newreply:
     get:
       summary: Replies a comment
       description: |
@@ -140,7 +140,7 @@ paths:
           schema:
             $ref: '#/definitions/Submissions'
     
-  /createsubmission:
+  /home/createsubmission:
     post:
       description: Creates new submission
       parameters:
@@ -165,7 +165,7 @@ paths:
           schema:
             $ref: '#/definitions/Submissions'
             
-  /createcomment:
+  /home/createcomment:
     post:
       description: Adds new comment to submission
       parameters:
@@ -190,7 +190,7 @@ paths:
           schema:
             $ref: '#/definitions/Comments'
     
-  /createreply:
+  /home/createreply:
     post:
       description: Adds new reply to comment
       parameters:
