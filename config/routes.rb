@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'auth/failure', to: 'home#index'
   get '/signout', to: 'sessions#destroy', as: 'signout'
 
+  namespace :api, defaults: { format: "json" }
   resources :submissions
   resources :replies
   resources :comments
