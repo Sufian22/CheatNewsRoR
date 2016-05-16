@@ -5,7 +5,7 @@ info:
   description: ASW Web project
   version: "1.0.0"
   
-host: hackernews-mingjian.c9users.io
+host: cheatnews.herokuapp.com
 basePath: /api
 schemes:
   - http
@@ -23,7 +23,7 @@ paths:
     post:
       summary: post new session
       tags:
-        - session
+        - Session
       responses:
         201:
           description:  Session created
@@ -33,7 +33,7 @@ paths:
     post:
       summary: post new user
       tags:
-        - user
+        - Users
       responses:
         201:
           description:  User created
@@ -43,7 +43,7 @@ paths:
   /users/{id}:
     get:
       tags:
-        - User
+        - Users
       summary: Get user by id
       description: |
         Return user with the corresponding id.
@@ -181,7 +181,7 @@ paths:
     post:
       summary: post new comment for the submission
       tags:
-        - comments
+        - Comments
       responses:
         201:
           description: Comment created
@@ -231,7 +231,7 @@ paths:
     post:
       summary: post new submission
       tags:
-        - submissions
+        - Submissions
       responses:
         201:
           description: Submission created
@@ -280,7 +280,7 @@ paths:
     post:
       summary: post new reply for the comment
       tags:
-        - replies
+        - Replies
       responses:
         201:
           description: Reply created
@@ -316,15 +316,6 @@ paths:
 
 
 definitions:
-  Session:
-    type: object
-    properties:
-      user_id:
-        type: integer
-        description: User id
-      omniauth:
-        type: string
-        description: authentication with the omniauth-facebook
   User:
     type: object
     properties:
@@ -432,35 +423,3 @@ definitions:
       valoracio:
         type: integer
         description: Vote points
-  Votes:
-    type: object
-    properties:
-      votable_id: 
-        type: integer
-        description: vote id
-      votable_type:
-        type: string
-        description: type
-      voter_id:
-        type: integer
-        description: voter id 
-      voter_type:
-        type: string
-        description: voter type
-      vote_flag:
-        type: boolean
-        description: vote flag
-      vote_scope: 
-        type: string
-        description: vote scope
-      vote_weight:
-        type: integer
-        description: vote weight
-      created_at: 
-        type: string 
-        format: date
-        description: Creation date of vote
-      updated_at:
-        type: string
-        format: date
-        description: Update date of vote
