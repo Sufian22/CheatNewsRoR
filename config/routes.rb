@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
 
   resources :users
-  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+  #devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
   resources :sessions, only: [:create, :destroy]
 
