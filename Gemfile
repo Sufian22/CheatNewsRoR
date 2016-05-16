@@ -34,8 +34,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Bootstrap
 gem 'twitter-bootstrap-rails'
 
+gem 'responders'
 gem 'simple_form'
-
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -56,8 +56,8 @@ end
 group :production do
   gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
-  gem 'responders'
 end
+
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

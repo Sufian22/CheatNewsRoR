@@ -4,31 +4,26 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  #helper_method :getAuthor
-
   # GET /users
   # GET /users.json
   def index
     @users = User.all
   end
+
   # GET /users/1
   # GET /users/1.json
   def show
+
   end
   # GET /users/new
   def new
     @user = User.new
   end
+
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
   end
-
-  #def getAuthor(user_id)
-  #  @user = User.find(user_id)
-  #  author = @user.name
-    #return author
-  #end
 
   # POST /users
   # POST /users.json
@@ -92,11 +87,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-
   def user_params
     #params.require(:user).permit!
     params.permit(:name, :nickname, :image, :email, :uid, :provider, :password)
   end
-
 
 end
