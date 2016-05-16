@@ -1,0 +1,359 @@
+swagger: '2.0'
+
+info:
+  title: Cheats news
+  description: ASW Web project
+  version: "1.0.0"
+  
+host: hackernews-mingjian.c9users.io
+basePath: /home
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+  - text/xml
+produces:
+  - application/json
+  - text/html
+
+paths:
+  /edituser:
+    get:
+      summary: Updates user profile
+      description: |
+        The Edituser endpoint returns a form to edit and update the about of user.
+      tags:
+        - User
+      responses:
+        200:
+          description: The profile of user has been updated successfully.
+          schema:
+            $ref: '#/definitions/User'
+        403:
+          description: Error
+  /showuser:
+    get:
+      summary: Shows user profile
+      description: |
+        The Showuser endpoint returns information about the user profile. The response
+        includes the display profile image, user name, date created, email, about and 
+        list of comments, submissions, replies.
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: query
+          description: The user id
+          required: true
+          type: string
+      responses:
+        200:
+          description: Profile information for a user
+          schema:
+            $ref: '#/definitions/User'
+        404:
+          description: User not found
+          
+  /news:
+    get:
+      summary: Shows list of recents submissions.
+      description: |
+        The News returns a list of submissions ordered by date, each news 
+        contains information of title, url link(optional), author, vote points and 
+        comments number.
+      tags:
+        - Submissions
+      responses:
+        200:
+          description: An array of submissions
+          schema:
+            type: array
+            $ref: '#/definitions/Submissions'
+  /asks:
+    get:
+      summary: Shows list of recents submissions without the url link.
+      description: |
+        The Asks returns a list of submissions without url link each news 
+        contains information of title, url link(optional), author, vote points and 
+        comments number.
+      tags:
+        - Submissions
+      responses:
+        200:
+          description: An array of submissions
+          schema:
+            type: array
+            $ref: '#/definitions/Submissions'
+            
+  /threads:
+    get:
+      summary: Shows list of user comments
+      description: |
+        The Threads returns a list of comments. The response includes the content of 
+        the comment, and the title of the corresponding submission.
+      tags:
+        - Comments
+      responses:
+        200:
+          description: An array of comments
+          schema:
+            type: array
+            $ref: '#/definitions/Comments'
+  /newcomment:
+    get:
+      summary: Shows a form for adding comment to a submission
+      description: |
+        The Newcomment returns the information of submission and a form to comment the 
+        corresponding submission.
+      tags:
+        - Comments
+      responses:
+        200:
+          description: Success the comment operation.
+          schema:
+            $ref: '#/definitions/Comments'
+  /newreply:
+    get:
+      summary: Replies a comment
+      description: |
+        The Newreply allows add a reply to the comment.
+      tags:
+        - Replies
+      responses:
+        200:
+          description: The comment operation has been added successfully.
+          schema:
+            $ref: '#/definitions/Replies'
+            
+  /newsubmission:
+    get:
+      summary: Creates new submission
+      description: |
+        The Newreply returns a form to add new submission. The form includes the title
+        text label, link text label and description text area.
+      tags:
+        - Submissions
+      responses:
+        200:
+          description: The new submission has been created successfully. 
+          schema:
+            $ref: '#/definitions/Submissions'
+    
+  /createsubmission:
+    post:
+      description: Creates new submission
+      parameters:
+        - name: title
+          in: query
+          description: The title for the submission
+          required: false
+          type: string
+        - name: link
+          in: query
+          description: The link for the submission
+          required: false
+          type: string
+        - name: description
+          in: query
+          description: The description for the submission
+          required: false
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Submissions'
+            
+  /createcomment:
+    post:
+      description: Adds new comment to submission
+      parameters:
+        - name: texto
+          in: query
+          description: The texto of the comment.
+          required: true
+          type: string
+        - name: user_id
+          in: query
+          description: The user id 
+          required: true
+          type: integer
+        - name: submission_id
+          in: query
+          description: The submission id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Comments'
+    
+  /createreply:
+    post:
+      description: Adds new reply to comment
+      parameters:
+        - name: texto
+          in: query
+          description: The texto of the reply.
+          required: true
+          type: string
+        - name: user_id
+          in: query
+          description: The user id 
+          required: true
+          type: integer
+        - name: submission_id
+          in: query
+          description: The submission id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Replies'
+            
+  #patch 'home/updateuser'
+        
+definitions:
+  User:
+    type: object
+    properties:
+      provider:
+        type: string
+        description: Default value is email and can't be nullable.
+      uid:
+        type: string
+        description: Unique identifier representing a user and can't be nullable.
+      encrypted_password:
+        type: string 
+        description: User password
+      name:
+        type: string 
+        description: User name
+      image:
+        type: string
+        description: User profile image
+      email:
+        type: string 
+        description: User email. 
+      created_at:
+        type: string
+        format: date
+        description: Creation date of user
+      update_at:
+        type: string
+        format: date
+        description: Update date of user
+      about:
+        type: string 
+        description: User about
+  Comments:
+    type: object
+    properties:
+      texto:
+        type: string
+        description: comment content
+      user_id:
+        type: integer
+        description: user id
+      submission_id:
+        type: integer
+        description: submission id 
+      created_at: 
+        type: string 
+        format: date
+        description: Creation date of comment
+      updated_at:
+        type: string
+        format: date
+        description: Update date of comment
+      valoracio:
+        type: integer
+        description: Vote points
+  Replies:
+    type: object
+    properties:
+      texto:
+        type: string
+        description: reply content
+      user_id:
+        type: integer
+        description: user id
+      submission_id:
+        type: integer
+        description: submission id 
+      created_at: 
+        type: string 
+        format: date
+        description: Creation date of reply
+      updated_at:
+        type: string
+        format: date
+        description: Update date of reply
+      valoracio:
+        type: integer
+        description: Vote points
+  Submissions:
+    type: object
+    properties:
+      title:
+        type: string 
+        description: submission title
+      link: 
+        type: string
+        description: submission url link
+      description:
+        type: string
+        description: submission description
+      tipo:
+        type: integer
+        description: submission type, 1 represents submission with url link, 2 represents submission without url link.
+      user_id:
+        type: integer
+        description: author id of the submission
+      created_at: 
+        type: string 
+        format: date
+        description: Creation date of submission
+      updated_at:
+        type: string
+        format: date
+        description: Update date of submission
+      valoracio:
+        type: integer
+        description: Vote points
+  Votes:
+    type: object
+    properties:
+      votable_id: 
+        type: integer
+        description: vote id
+      votable_type:
+        type: string
+        description: type
+      voter_id:
+        type: integer
+        description: voter id 
+      voter_type:
+        type: string
+        description: voter type
+      vote_flag:
+        type: boolean
+        description: vote flag
+      vote_scope: 
+        type: string
+        description: vote scope
+      vote_weight:
+        type: integer
+        description: vote weight
+      created_at: 
+        type: string 
+        format: date
+        description: Creation date of vote
+      updated_at:
+        type: string
+        format: date
+        description: Update date of vote
