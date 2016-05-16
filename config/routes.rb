@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get 'auth/failure', to: 'home#index'
   get '/signout', to: 'sessions#destroy', as: 'signout'
 
-
   namespace :api, defaults: { format: "json" } do
     #We are going to list our resources here
     resources :sessions, :only => [:create, :destroy]
@@ -15,7 +14,6 @@ Rails.application.routes.draw do
     resources :comments, :only => [:show, :index, :create, :update, :destroy]
     resources :replies, :only => [:show, :index, :create, :update, :destroy]
   end
-
 
   resources :users
   #devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }

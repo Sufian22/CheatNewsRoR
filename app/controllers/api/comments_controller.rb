@@ -11,7 +11,7 @@ class Api::CommentsController < ApplicationController
   end
 
   def create
-    comment = Comment.new(submission_params)
+    comment = Comment.new(comment_params)
 
     if comment.save
       render json: comment, status: 201, location: [:api, comment]
@@ -23,7 +23,7 @@ class Api::CommentsController < ApplicationController
   def update
     comment = Comment.find(params[:id])
 
-    if comment.update(submission_params)
+    if comment.update(comment_params)
       render json: comment, status: 200, location: [:api, comment]
     else
       render json: { errors: comment.errors }, status: 422
@@ -39,7 +39,7 @@ class Api::CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:texto, :user_id, :submission_id)
+    params.permit(:texto, :user_id, :submission_id)
   end
 
 end

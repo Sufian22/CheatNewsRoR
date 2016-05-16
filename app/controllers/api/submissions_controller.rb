@@ -20,7 +20,6 @@ class Api::SubmissionsController < ApplicationController
     end
   end
 
-
   def update
     submission = Submission.find(params[:id])
 
@@ -40,7 +39,7 @@ class Api::SubmissionsController < ApplicationController
   private
 
   def submission_params
-    params.require(:submission).permit(:title, :link, :description, :tipo, :user_id)
+    params.permit(:title, :link, :description, :tipo, :user_id)
   end
 
 end
