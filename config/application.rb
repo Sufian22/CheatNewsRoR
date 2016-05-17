@@ -22,29 +22,32 @@ module Untitled1
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.assets.initialize_on_precompile = false
+
     config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
-     allow do
-       origins '*'
+      allow do
+        origins '*'
 
-       resource '/cors',
-         :headers => :any,
-         :methods => [:post],
-         :credentials => true,
-         :max_age => 0
+        resource '/cors',
+                 :headers => :any,
+                 :methods => [:post],
+                 :credentials => true,
+                 :max_age => 0
 
-       resource '*',
-         :headers => :any,
-         :methods => [:get, :post, :delete, :put, :patch, :options, :head],
-         :max_age => 0
-     end
-   end
-   config.action_dispatch.default_headers = {
-   'X-Frame-Options' => 'SAMEORIGIN',
-     'X-XSS-Protection' => '1; mode=block',
-     'X-Content-Type-Options' => 'nosniff',
-     'Access-Control-Allow-Origin' => '*',
-     'Access-Control-Request-Method' => %w{GET POST PUT OPTIONS}.join(","),
-     'Access-Control-Allow-Headers' => 'Origin, X-Requested-With, Content-Type, Accept'
-   }
+        resource '*',
+                 :headers => :any,
+                 :methods => [:get, :post, :delete, :put, :patch, :options, :head],
+                 :max_age => 0
+      end
+    end
+
+    config.action_dispatch.default_headers = {
+        'X-Frame-Options' => 'SAMEORIGIN',
+        'X-XSS-Protection' => '1; mode=block',
+        'X-Content-Type-Options' => 'nosniff',
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Request-Method' => %w{GET POST PUT OPTIONS}.join(","),
+        'Access-Control-Allow-Headers' => 'Origin, X-Requested-With, Content-Type, Accept'
+    }
   end
 end
