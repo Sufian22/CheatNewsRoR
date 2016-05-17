@@ -19,17 +19,6 @@ produces:
 
 paths:
 
-  /users:
-    post:
-      summary: post new user
-      tags:
-        - Users
-      responses:
-        201:
-          description:  User created
-        422:
-          description: Unprocessable Entity
-
   /users/{id}:
     get:
       tags:
@@ -78,8 +67,10 @@ paths:
           description: The profile of user has been updated successfully.
           schema:
             $ref: '#/definitions/User'
-        403:
-          description: Error
+        422:
+          description: Unprocessable Entity
+        405:
+          description: Not allowed
     patch:
       tags:
         - Users
@@ -106,8 +97,10 @@ paths:
           description: The profile of user has been updated successfully.
           schema:
             $ref: '#/definitions/User'
-        403:
-          description: Error
+        422:
+          description: Unprocessable Entity
+        405:
+          description: Not allowed
 
   /comments:
     get:
@@ -365,7 +358,7 @@ paths:
           description: Reply not found
 
   /replies/{id}/like:
-    get:
+    put:
       tags:
         - Replies
       summary: Vote reply

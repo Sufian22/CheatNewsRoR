@@ -31,6 +31,7 @@ class Api::RepliesController < ApplicationController
   def create
     reply = Reply.new(reply_params)
     reply.user_id = @current_user.id
+    reply.valoracio = 0
 
     if reply.save
       render json: reply, status: 201, location: [:api, reply]
