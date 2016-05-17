@@ -45,7 +45,6 @@ paths:
           description: id of user
           type: integer
           required: true
-          default: 1
       responses:
         200:
           description: Got User.
@@ -69,6 +68,11 @@ paths:
           description: The description for the user
           required: false
           type: string
+        - name: Authorization
+          in: header
+          description: Api key value
+          required: true
+          type: string
       responses:
         200:
           description: The profile of user has been updated successfully.
@@ -86,21 +90,16 @@ paths:
           description: id of user
           type: integer
           required: true
-          default: 1
-        - name: name
-          in: query
-          description: Name of the user
-          required: false
-          type: string
-        - name: image
-          in: query
-          description: The link of the profile`s image
-          required: false
-          type: string
+          default: 6
         - name: about
           in: query
           description: The description for the user
           required: false
+          type: string
+        - name: Authorization
+          in: header
+          description: Api key value
+          required: true
           type: string
       responses:
         200:
@@ -110,40 +109,6 @@ paths:
         403:
           description: Error
 
-  /users/edit/{id}:
-    put:
-      tags:
-        - Users
-      summary: Updates user profile
-      parameters:
-        - name: id
-          in: path
-          description: id of user
-          type: integer
-          required: true
-          default: 1
-        - name: name
-          in: query
-          description: Name of the user
-          required: false
-          type: string
-        - name: image
-          in: query
-          description: The link of the profile`s image
-          required: false
-          type: string
-        - name: about
-          in: query
-          description: The description for the user
-          required: false
-          type: string
-      responses:
-        200:
-          description: The profile of user has been updated successfully.
-          schema:
-            $ref: '#/definitions/User'
-        403:
-          description: Error
   /comments:
     get:
       summary: Show lists of comments.
@@ -165,21 +130,19 @@ paths:
       parameters:
       - name: texto
         in: query
-        description: Comment's title
-        required: false
+        description: Comment's text
+        required: true
         type: string
       - name: submission_id
         in: query
         description: Submissions's id in which you do the comment
         required: true
         type: integer
-        default: 1
-      - name: user_id
-        in: query
-        description: User's id who did the comment
+      - name: Authorization
+        in: header
+        description: Api key value
         required: true
-        type: integer
-        default: 1
+        type: string
       responses:
         201:
           description: Comment created
@@ -203,7 +166,6 @@ paths:
           description: comment id
           type: integer
           required: true
-          default: 1
       responses:
         200:
           description: Got Comment
@@ -227,7 +189,11 @@ paths:
           description: comment id
           type: integer
           required: true
-          default: 1
+        - name: Authorization
+          in: header
+          description: Api key value
+          required: true
+          type: string
       responses:
         200:
           description: Got Comment
@@ -258,24 +224,23 @@ paths:
       - name: title
         in: query
         description: Submissions's title
-        required: false
+        required: true
         type: string
       - name: description
         in: query
         description: Submissions's description
-        required: false
+        required: true
         type: string
       - name: link
         in: query
         description: Submissions's link
         required: false
         type: string
-      - name: user_id
-        in: query
-        description: User's id who did the submission
+      - name: Authorization
+        in: header
+        description: Api key value
         required: true
-        type: integer
-        default: 1
+        type: string
       responses:
         201:
           description: Submission created
@@ -298,7 +263,6 @@ paths:
           description: submission id
           type: integer
           required: true
-          default: 1
       responses:
         200:
           description: Got Submission
@@ -322,7 +286,11 @@ paths:
           description: submission id
           type: integer
           required: true
-          default: 1
+        - name: Authorization
+          in: header
+          description: Api key value
+          required: true
+          type: string
       responses:
         200:
           description: Got Submission
@@ -352,21 +320,19 @@ paths:
       parameters:
       - name: texto
         in: query
-        description: Comment's title
-        required: false
+        description: Repliy's text
+        required: true
         type: string
       - name: comment_id
         in: query
         description: Comment's id in which you do the reply
         required: true
         type: integer
-        default: 1
-      - name: user_id
-        in: query
-        description: User's id who did the reply
+      - name: Authorization
+        in: header
+        description: Api key value
         required: true
-        type: integer
-        default: 1
+        type: string
       responses:
         201:
           description: Reply created
@@ -390,7 +356,6 @@ paths:
           description: reply id
           type: integer
           required: true
-          default: 1
       responses:
         200:
           description: Got Reply
@@ -414,7 +379,11 @@ paths:
           description: reply id
           type: integer
           required: true
-          default: 1
+        - name: Authorization
+          in: header
+          description: Api key value
+          required: true
+          type: string
       responses:
         200:
           description: Got Reply

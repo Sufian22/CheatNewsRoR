@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
 
-  #before_action :authenticate_with_token!, only: [:update, :destroy]
+  before_action :authenticate_with_token!, only: [:update]
 
   respond_to :json
 
@@ -25,10 +25,14 @@ class Api::UsersController < ApplicationController
   def update
     user = User.find(params[:id])
 
-    if user.update(user_params)
-      render json: user, status: 200, location: [:api, user]
+    if user.id == @current_user.id
+      if user.update(user_params)
+        render json: user, status: 200, location: [:api, user]
+      else
+        render json: { errors: user.errors }, status: 422
+      end
     else
-      render json: { errors: user.errors }, status: 422
+      render json: { errors: "You can only update your profile." }, status: 405
     end
   end
 

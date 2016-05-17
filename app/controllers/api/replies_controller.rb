@@ -1,6 +1,6 @@
 class Api::RepliesController < ApplicationController
 
-  #before_action :authenticate_with_token!, only: [:create, :update, :destroy]
+  before_action :authenticate_with_token!, only: [:create,:upvote]
 
   respond_to :json
 
@@ -15,24 +15,22 @@ class Api::RepliesController < ApplicationController
   end
 
   def upvote
-    #if current_user
     @reply = Reply.find(params[:id])
-    #@submission.liked_by current_user
-    if @reply.update(valoracio: @reply.votes_for.size+1)
-      render json: @reply, status: 201, location: [:api, @reply]
+    if @reply.user_id != @current_user.id
+      @reply.liked_by @current_user
+      if @reply.update(valoracio: @reply.votes_for.size)
+        render json: @reply, status: 201, location: [:api, @reply]
+      else
+        render json: { errors: @reply.errors }, status: 422
+      end
     else
-      render json: { errors: @reply.errors }, status: 422
+      render json: { errors: "You are not allowed to vote your replies" }, status: 405
     end
-
-    #redirect_to root_path
-    #else # ve de l'api
-    #@submission = Submission.find(params[:id])
-    #@user = User.find(params[:user_id])
-    #end
   end
 
   def create
     reply = Reply.new(reply_params)
+    reply.user_id = @current_user.id
 
     if reply.save
       render json: reply, status: 201, location: [:api, reply]

@@ -1,6 +1,6 @@
 class Api::CommentsController < ApplicationController
 
-  #before_action :authenticate_with_token!, only: [:create, :update, :destroy]
+  before_action :authenticate_with_token!, only: [:create,:upvote]
 
   respond_to :json
 
@@ -15,23 +15,22 @@ class Api::CommentsController < ApplicationController
   end
 
   def upvote
-    #if current_user
     @comment = Comment.find(params[:id])
-    #@submission.liked_by current_user
-    if @comment.update(valoracio: @comment.votes_for.size+1)
-      render json: @comment, status: 201, location: [:api, @comment]
+    if @comment.user_id != @current_user.id
+      @comment.liked_by @current_user
+      if @comment.update(valoracio: @comment.votes_for.size)
+        render json: @comment, status: 201, location: [:api, @comment]
+      else
+        render json: { errors: @comment.errors }, status: 422
+      end
     else
-      render json: { errors: @comment.errors }, status: 422
+      render json: { errors: "You are not allowed to vote your comments" }, status: 405
     end
-    #redirect_to root_path
-    #else # ve de l'api
-    #@submission = Submission.find(params[:id])
-    #@user = User.find(params[:user_id])
-    #end
   end
 
   def create
     comment = Comment.new(comment_params)
+    comment.user_id = @current_user.id
 
     if comment.save
       render json: comment, status: 201, location: [:api, comment]
@@ -42,8 +41,8 @@ class Api::CommentsController < ApplicationController
 
   def update
     # Falta controlar que solo pueda modificar los suyos
-
     comment = Comment.find(params[:id])
+
     if comment.update(comment_params)
       render json: comment, status: 200, location: [:api, comment]
     else

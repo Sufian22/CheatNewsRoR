@@ -1,6 +1,6 @@
 class Api::SubmissionsController < ApplicationController
 
-  #before_action :authenticate_with_token!, only: [:create, :update, :destroy]
+  before_action :authenticate_with_token!, only: [:create,:upvote]
 
   respond_to :json
 
@@ -16,6 +16,14 @@ class Api::SubmissionsController < ApplicationController
 
   def create
     submission = Submission.new(submission_params)
+    submission.user_id = @current_user.id
+    submission.valoracio = 0
+
+    if submission.link.nil?
+      submission.tipo = 2
+    else
+      submission.tipo = 1
+    end
 
     if submission.save
       render json: submission, status: 201, location: [:api, submission]
@@ -25,19 +33,17 @@ class Api::SubmissionsController < ApplicationController
   end
 
   def upvote
-    #if current_user
-      @submission = Submission.find(params[:id])
-      #@submission.liked_by current_user
-      if @submission.update(valoracio: @submission.votes_for.size+1)
+    @submission = Submission.find(params[:id])
+    if @submission.user_id != @current_user.id
+      @submission.liked_by @current_user
+      if @submission.update(valoracio: @submission.votes_for.size)
         render json: @submission, status: 201, location: [:api, @submission]
       else
         render json: { errors: @submission.errors }, status: 422
       end
-      #redirect_to root_path
-    #else # ve de l'api
-      #@submission = Submission.find(params[:id])
-      #@user = User.find(params[:user_id])
-    #end
+    else
+      render json: { errors: "You are not allowed to vote your submissions" }, status: 405
+    end
   end
 
   def update
