@@ -9,7 +9,8 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    respond_with User.find(params[:id])
+    #respond_with User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def create

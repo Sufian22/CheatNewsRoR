@@ -1,15 +1,17 @@
 class Api::SubmissionsController < ApplicationController
 
-  before_action :authenticate_with_token!
+  before_action :authenticate_with_token!, only: [:create, :update, :destroy]
 
   respond_to :json
 
   def index
-    respond_with Submission.all
+    #respond_with Submission.all
+    @submissions = Submission.all
   end
 
   def show
-    respond_with Submission.find(params[:id])
+    #respond_with Submission.find(params[:id])
+    @submission = Submission.find(params[:id])
   end
 
   def create

@@ -1,15 +1,17 @@
 class Api::RepliesController < ApplicationController
 
-  before_action :authenticate_with_token!
+  before_action :authenticate_with_token!, only: [:create, :update, :destroy]
 
   respond_to :json
 
   def index
-    respond_with Reply.all
+    #respond_with Reply.all
+    @replies = Reply.all
   end
 
   def show
-    respond_with Reply.find(params[:id])
+    #respond_with Reply.find(params[:id])
+    @reply = Reply.find(params[:id])
   end
 
   def create

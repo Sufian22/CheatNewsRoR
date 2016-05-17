@@ -1,15 +1,17 @@
 class Api::CommentsController < ApplicationController
 
-  before_action :authenticate_with_token!
+  before_action :authenticate_with_token!, only: [:create, :update, :destroy]
 
   respond_to :json
 
   def index
-    respond_with Comment.all
+    #respond_with Comment.all
+    @comments = Comment.all
   end
 
   def show
-    respond_with Comment.find(params[:id])
+    #respond_with Comment.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def create
