@@ -24,6 +24,22 @@ class Api::SubmissionsController < ApplicationController
     end
   end
 
+  def upvote
+    #if current_user
+      @submission = Submission.find(params[:id])
+      #@submission.liked_by current_user
+      if @submission.update(valoracio: @submission.votes_for.size+1)
+        render json: @submission, status: 201, location: [:api, @submission]
+      else
+        render json: { errors: @submission.errors }, status: 422
+      end
+      #redirect_to root_path
+    #else # ve de l'api
+      #@submission = Submission.find(params[:id])
+      #@user = User.find(params[:user_id])
+    #end
+  end
+
   def update
     # Falta controlar que solo pueda modificar los suyos
 

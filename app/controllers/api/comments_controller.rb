@@ -14,6 +14,22 @@ class Api::CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
+  def upvote
+    #if current_user
+    @comment = Comment.find(params[:id])
+    #@submission.liked_by current_user
+    if @comment.update(valoracio: @comment.votes_for.size+1)
+      render json: @comment, status: 201, location: [:api, @comment]
+    else
+      render json: { errors: @comment.errors }, status: 422
+    end
+    #redirect_to root_path
+    #else # ve de l'api
+    #@submission = Submission.find(params[:id])
+    #@user = User.find(params[:user_id])
+    #end
+  end
+
   def create
     comment = Comment.new(comment_params)
 

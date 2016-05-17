@@ -200,7 +200,31 @@ paths:
       parameters:
         - name: id
           in: path
-          description: id of comment
+          description: comment id
+          type: integer
+          required: true
+          default: 1
+      responses:
+        200:
+          description: Got Comment
+          schema:
+            $ref: '#/definitions/Comments'
+        404:
+          description: Comment not found
+
+  /comments/{id}/like:
+    put:
+      tags:
+        - Comments
+      summary: Vote comment
+      description: |
+        Return comment with the corresponding id.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: comment id
           type: integer
           required: true
           default: 1
@@ -271,7 +295,31 @@ paths:
       parameters:
         - name: id
           in: path
-          description: id of submission
+          description: submission id
+          type: integer
+          required: true
+          default: 1
+      responses:
+        200:
+          description: Got Submission
+          schema:
+            $ref: '#/definitions/Submissions'
+        404:
+          description: Submission not found
+
+  /submissions/{id}/like:
+    put:
+      tags:
+        - Submissions
+      summary: Vote Submission
+      description: |
+        Return submission with the corresponding id.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: submission id
           type: integer
           required: true
           default: 1
@@ -339,7 +387,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: id of reply
+          description: reply id
           type: integer
           required: true
           default: 1
@@ -351,7 +399,29 @@ paths:
         404:
           description: Reply not found
 
-
+  /replies/{id}/like:
+    get:
+      tags:
+        - Replies
+      summary: Vote reply
+      description: |
+        Return reply with the corresponding id.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: reply id
+          type: integer
+          required: true
+          default: 1
+      responses:
+        200:
+          description: Got Reply
+          schema:
+            $ref: '#/definitions/Replies'
+        404:
+          description: Reply not found
 
 definitions:
   User:

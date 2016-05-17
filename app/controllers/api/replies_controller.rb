@@ -14,6 +14,23 @@ class Api::RepliesController < ApplicationController
     @reply = Reply.find(params[:id])
   end
 
+  def upvote
+    #if current_user
+    @reply = Reply.find(params[:id])
+    #@submission.liked_by current_user
+    if @reply.update(valoracio: @reply.votes_for.size+1)
+      render json: @reply, status: 201, location: [:api, @reply]
+    else
+      render json: { errors: @reply.errors }, status: 422
+    end
+
+    #redirect_to root_path
+    #else # ve de l'api
+    #@submission = Submission.find(params[:id])
+    #@user = User.find(params[:user_id])
+    #end
+  end
+
   def create
     reply = Reply.new(reply_params)
 
