@@ -22,7 +22,7 @@ module Untitled1
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-    config.assets.initialize_on_precompile = false
+    #config.assets.initialize_on_precompile = false
 
     config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
       allow do
