@@ -1,6 +1,6 @@
 class Api::RepliesController < ApplicationController
 
-  before_action :authenticate_with_token!, only: [:create, :update, :destroy]
+  #before_action :authenticate_with_token!, only: [:create, :update, :destroy]
 
   respond_to :json
 

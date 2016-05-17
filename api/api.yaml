@@ -4,7 +4,7 @@ info:
   title: Cheats news
   description: ASW Web project
   version: "1.0.0"
-  
+
 host: cheatnews.herokuapp.com
 basePath: /api
 schemes:
@@ -29,7 +29,7 @@ paths:
           description:  User created
         422:
           description: Unprocessable Entity
-          
+
   /users/{id}:
     get:
       tags:
@@ -64,16 +64,6 @@ paths:
           type: integer
           required: true
           default: 1
-        - name: name
-          in: query
-          description: Name of the user
-          required: false
-          type: string
-        - name: image
-          in: query
-          description: The link of the profile`s image
-          required: false
-          type: string
         - name: about
           in: query
           description: The description for the user
@@ -119,7 +109,7 @@ paths:
             $ref: '#/definitions/User'
         403:
           description: Error
-  
+
   /users/edit/{id}:
     put:
       tags:
@@ -153,7 +143,7 @@ paths:
           schema:
             $ref: '#/definitions/User'
         403:
-          description: Error     
+          description: Error
   /comments:
     get:
       summary: Show lists of comments.
@@ -172,14 +162,32 @@ paths:
       summary: post new comment for the submission
       tags:
         - Comments
+      parameters:
+      - name: texto
+        in: query
+        description: Comment's title
+        required: false
+        type: string
+      - name: submission_id
+        in: query
+        description: Submissions's id in which you do the comment
+        required: true
+        type: integer
+        default: 1
+      - name: user_id
+        in: query
+        description: User's id who did the comment
+        required: true
+        type: integer
+        default: 1
       responses:
         201:
           description: Comment created
         404:
           description: Submission not found
         422:
-          description: Unprocessable Entity      
-  
+          description: Unprocessable Entity
+
   /comments/{id}:
     get:
       tags:
@@ -203,7 +211,7 @@ paths:
             $ref: '#/definitions/Comments'
         404:
           description: Comment not found
-          
+
   /submissions:
     get:
       summary: Show lists of submissions.
@@ -222,13 +230,35 @@ paths:
       summary: post new submission
       tags:
         - Submissions
+      parameters:
+      - name: title
+        in: query
+        description: Submissions's title
+        required: false
+        type: string
+      - name: description
+        in: query
+        description: Submissions's description
+        required: false
+        type: string
+      - name: link
+        in: query
+        description: Submissions's link
+        required: false
+        type: string
+      - name: user_id
+        in: query
+        description: User's id who did the submission
+        required: true
+        type: integer
+        default: 1
       responses:
         201:
           description: Submission created
         422:
           description: Unprocessable Entity
-          
-          
+
+
   /submissions/{id}:
     get:
       tags:
@@ -252,7 +282,7 @@ paths:
             $ref: '#/definitions/Submissions'
         404:
           description: Submission not found
-    
+
   /replies:
     get:
       summary: Show lists of replies.
@@ -271,6 +301,24 @@ paths:
       summary: post new reply for the comment
       tags:
         - Replies
+      parameters:
+      - name: texto
+        in: query
+        description: Comment's title
+        required: false
+        type: string
+      - name: comment_id
+        in: query
+        description: Comment's id in which you do the reply
+        required: true
+        type: integer
+        default: 1
+      - name: user_id
+        in: query
+        description: User's id who did the reply
+        required: true
+        type: integer
+        default: 1
       responses:
         201:
           description: Reply created
@@ -278,7 +326,7 @@ paths:
           description: Comment not found
         422:
           description: Unprocessable Entity
-          
+
   /replies/{id}:
     get:
       tags:
@@ -302,7 +350,7 @@ paths:
             $ref: '#/definitions/Replies'
         404:
           description: Reply not found
-          
+
 
 
 definitions:
@@ -316,17 +364,17 @@ definitions:
         type: string
         description: Unique identifier representing a user and can't be nullable.
       encrypted_password:
-        type: string 
+        type: string
         description: User password
       name:
-        type: string 
+        type: string
         description: User name
       image:
         type: string
         description: User profile image
       email:
-        type: string 
-        description: User email. 
+        type: string
+        description: User email.
       created_at:
         type: string
         format: date
@@ -336,7 +384,7 @@ definitions:
         format: date
         description: Update date of user
       about:
-        type: string 
+        type: string
         description: User about
   Comments:
     type: object
@@ -349,9 +397,9 @@ definitions:
         description: user id
       submission_id:
         type: integer
-        description: submission id 
-      created_at: 
-        type: string 
+        description: submission id
+      created_at:
+        type: string
         format: date
         description: Creation date of comment
       updated_at:
@@ -372,9 +420,9 @@ definitions:
         description: user id
       submission_id:
         type: integer
-        description: submission id 
-      created_at: 
-        type: string 
+        description: submission id
+      created_at:
+        type: string
         format: date
         description: Creation date of reply
       updated_at:
@@ -388,9 +436,9 @@ definitions:
     type: object
     properties:
       title:
-        type: string 
+        type: string
         description: submission title
-      link: 
+      link:
         type: string
         description: submission url link
       description:
@@ -402,8 +450,8 @@ definitions:
       user_id:
         type: integer
         description: author id of the submission
-      created_at: 
-        type: string 
+      created_at:
+        type: string
         format: date
         description: Creation date of submission
       updated_at:
