@@ -19,16 +19,6 @@ produces:
 
 paths:
 
-  /sessions:
-    post:
-      summary: post new session
-      tags:
-        - Session
-      responses:
-        201:
-          description:  Session created
-        422:
-          description: Unprocessable Entity
   /users:
     post:
       summary: post new user
