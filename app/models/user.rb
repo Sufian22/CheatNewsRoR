@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  after_create :generate_authentication_token!
+  before_create :generate_authentication_token!
   validates :auth_token, uniqueness: true
 
   has_many :submissions
@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
       user.name = auth.info.name
       user.email = auth.info.email
       user.image = auth.info.image
+      user.auth_token = SecureRandom.hex
       user.save!
     end
   end
