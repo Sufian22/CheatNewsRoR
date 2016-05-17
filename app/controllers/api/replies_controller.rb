@@ -46,7 +46,7 @@ class Api::RepliesController < ApplicationController
   private
 
   def reply_params
-    params.permit(:texto, :user_id, :comment_id)
+    params.permit(:texto, :user_id, :comment_id, :valoracio)
   end
 
 end

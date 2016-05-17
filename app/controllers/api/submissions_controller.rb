@@ -46,7 +46,7 @@ class Api::SubmissionsController < ApplicationController
   private
 
   def submission_params
-    params.permit(:title, :link, :description, :tipo, :user_id)
+    params.permit(:title, :link, :description, :tipo, :user_id, :valoracio)
   end
 
 end
