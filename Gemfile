@@ -21,6 +21,7 @@ gem 'swagger-docs'
 #gem 'devise'
 #gem 'devise_token_auth'
 gem 'rails_admin'
+gem 'rack-cors', :require => 'rack/cors' 
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
