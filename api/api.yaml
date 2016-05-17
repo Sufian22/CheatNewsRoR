@@ -63,7 +63,7 @@ paths:
           description: id of user
           type: integer
           required: true
-          default: 1
+          default: 6
         - name: about
           in: query
           description: The description for the user
