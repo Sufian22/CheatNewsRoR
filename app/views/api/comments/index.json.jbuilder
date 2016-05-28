@@ -4,4 +4,3 @@ json.array!(@comments) do |comment|
   json.user api_user_url(comment.user_id)
   json.submission api_submission_url(comment.submission_id)
 end
-g
