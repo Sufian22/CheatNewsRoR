@@ -6,7 +6,7 @@ class Api::RepliesController < ApplicationController
 
   def index
     #respond_with Reply.all
-    @replies = Reply.all.reversed
+    @replies = Reply.all.order(id: :desc)
   end
 
   def show

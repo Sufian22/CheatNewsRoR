@@ -6,7 +6,7 @@ class Api::SubmissionsController < ApplicationController
 
   def index
     #respond_with Submission.all
-    @submissions = Submission.all.reversed
+    @submissions = Submission.all.order(id: :desc)
   end
 
   def show

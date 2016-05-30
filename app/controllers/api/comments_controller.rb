@@ -6,7 +6,7 @@ class Api::CommentsController < ApplicationController
 
   def index
     #respond_with Comment.all
-    @comments = Comment.all.reversed
+    @comments = Comment.all.order(id: :desc)
   end
 
   def show
